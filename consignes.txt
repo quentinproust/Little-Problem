@@ -1,0 +1,13 @@
+Parties : 
+	* Dynamique:
+		** Gestion des users
+		** Liens avec une bdd
+	* Statique
+		** libre
+		** liens avec des pages externes / internes
+
+Possibilité :
+	* Forum ou e-commerce au choix
+	* Java + hibernate
+	* Php + Mysql
+	* Framework au choix
