@@ -1,153 +1,94 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using System.Web.Security;
+﻿using System.Web.Mvc;
+using DotNetOpenAuth.Messaging;
+using DotNetOpenAuth.OpenId;
+using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
+using DotNetOpenAuth.OpenId.RelyingParty;
+using LittleProblem.Data.Services;
 using LittleProblem.Web.Models;
 
 namespace LittleProblem.Web.Controllers
 {
-
     [HandleError]
     public class AccountController : Controller
     {
+        private readonly IMembershipService _membershipService;
 
-        public IFormsAuthenticationService FormsService { get; set; }
-        public IMembershipService MembershipService { get; set; }
-
-        protected override void Initialize(RequestContext requestContext)
+        public AccountController(IMembershipService membershipService)
         {
-            if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
-            if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
-
-            base.Initialize(requestContext);
+            _membershipService = membershipService;
         }
 
-        // **************************************
-        // URL: /Account/LogOn
-        // **************************************
-
-        public ActionResult LogOn()
+        public ActionResult LogIn()
         {
+            var openid = new OpenIdRelyingParty();
+            IAuthenticationResponse response = openid.GetResponse();
+
+            if (response != null)
+            {
+                switch (response.Status)
+                {
+                    case AuthenticationStatus.Authenticated:
+                        // TODO : register user for its first login                       
+                        Session.Add("openid", response.ClaimedIdentifier.ToString());
+                        
+                        ClaimsResponse fetch = response.GetExtension(typeof(ClaimsResponse)) as ClaimsResponse;
+                        string email = null;
+                        if (fetch != null)
+                        {
+                             email = fetch.Email;
+                        }
+                        if (email == null)
+                        {
+                            _membershipService.LogIn(response.ClaimedIdentifier.ToString());
+                        }
+                        else
+                        {
+                            _membershipService.LogIn(response.ClaimedIdentifier.ToString(), email);
+                        }
+                        
+
+                        return RedirectToAction("Index", "Home");
+
+                    case AuthenticationStatus.Canceled:
+                        ModelState.AddModelError("",
+                            "Login was cancelled at the provider");
+                        break;
+
+                    case AuthenticationStatus.Failed:
+                        ModelState.AddModelError("",
+                            "Login failed using the provided OpenID identifier");
+                        break;
+                }
+            }
             return View();
         }
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        public ActionResult LogIn(LogInModel model)
         {
-            if (ModelState.IsValid)
+            if (!Identifier.IsValid(model.OpenId))
             {
-                if (MembershipService.ValidateUser(model.UserName, model.Password))
-                {
-                    FormsService.SignIn(model.UserName, model.RememberMe);
-                    if (!String.IsNullOrEmpty(returnUrl))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                }
+                ModelState.AddModelError("loginIdentifier",
+                            "The specified login identifier is invalid");
+                return View();
             }
+            else
+            {
+                var openid = new OpenIdRelyingParty();
+                IAuthenticationRequest request = openid.CreateRequest(
+                    Identifier.Parse(model.OpenId));
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+                // Require email. We can latter use it for Gravatar 
+                // or for retriving forgotten open id.
+                request.AddExtension(new ClaimsRequest { Email = DemandLevel.Require });
+                return request.RedirectingResponse.AsActionResult();
+            }
         }
 
-        // **************************************
-        // URL: /Account/LogOff
-        // **************************************
-
-        public ActionResult LogOff()
+        public ActionResult LogOut()
         {
-            FormsService.SignOut();
-
+            Session.Clear();
             return RedirectToAction("Index", "Home");
         }
-
-        // **************************************
-        // URL: /Account/Register
-        // **************************************
-
-        public ActionResult Register()
-        {
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Register(RegisterModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                // Attempt to register the user
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password, model.Email);
-
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    FormsService.SignIn(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-            return View(model);
-        }
-
-        // **************************************
-        // URL: /Account/ChangePassword
-        // **************************************
-
-        [Authorize]
-        public ActionResult ChangePassword()
-        {
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-            return View();
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
-                {
-                    return RedirectToAction("ChangePasswordSuccess");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-            return View(model);
-        }
-
-        // **************************************
-        // URL: /Account/ChangePasswordSuccess
-        // **************************************
-
-        public ActionResult ChangePasswordSuccess()
-        {
-            return View();
-        }
-
     }
 }

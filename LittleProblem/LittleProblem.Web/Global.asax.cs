@@ -26,6 +26,7 @@ namespace LittleProblem.Web
 
         protected void Application_Start()
         {
+            ControllerBuilder.Current.SetControllerFactory(new SMControllerFactory());
             AreaRegistration.RegisterAllAreas();
 
             RegisterRoutes(RouteTable.Routes);
