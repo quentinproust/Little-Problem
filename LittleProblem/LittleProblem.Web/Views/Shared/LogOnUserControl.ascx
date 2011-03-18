@@ -2,7 +2,8 @@
 <%
     if (Request.IsAuthenticated) {
 %>
-        Welcome <b><%= Html.Encode(Page.User.Identity.Name) %></b>!
+        Welcome <b><%= Html.Encode(Page.User.Identity.Name) %></b> !
+        [ <%= Html.ActionLink("Profile", "Profile", "Account") %> ]
         [ <%= Html.ActionLink("Log Out", "LogOut", "Account") %> ]
 <%
     }

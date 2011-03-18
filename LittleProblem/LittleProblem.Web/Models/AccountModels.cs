@@ -16,6 +16,13 @@ namespace LittleProblem.Web.Models
     {
         public string OpenId { get; set; }
     }
+
+    public class ProfileModel
+    {
+        [Required(ErrorMessage = "You need to have a user name.")]
+        public String UserName { get; set; }
+        public String Email { get; set; }
+    }
     #endregion
 
 }

@@ -26,5 +26,11 @@ namespace LittleProblem.Data.Services
         /// <param name="openId">OpenId Identifier</param>
         /// <param name="email">Email</param>
         Member CreateOnFirstLogIn(string openId, string email);
+
+        /// <summary>
+        /// Edit member profile.
+        /// </summary>
+        /// <param name="member">Member with edited fields</param>
+        void EditMemberProfile(Member member);
     }
 }

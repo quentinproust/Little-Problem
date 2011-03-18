@@ -2,12 +2,22 @@
 using System.Linq;
 using FluentMongo.Linq;
 using LittleProblem.Data.Model;
+using LittleProblem.Data.Server;
 using MongoDB.Driver;
 
 namespace LittleProblem.Data.Services
 {
-    internal class MembershipService : IMembershipService
+    public class MembershipService : IMembershipService
     {
+        private readonly IConnexion _connexion;
+        private readonly MongoCollection<Member> _membersCollection;
+
+        public MembershipService(IConnexion connexion)
+        {
+            _connexion = connexion;
+            _membersCollection = _connexion.Collection<Member>(CollectionNames.Member);
+        }
+
         public Member LogIn(string openId)
         {
             return LogIn(openId, null);
@@ -15,29 +25,14 @@ namespace LittleProblem.Data.Services
 
         public Member LogIn(string openId, string email)
         {
-            var mongoServ = MongoServer.Create("mongodb://localhost");
-
-            var db = mongoServ.GetDatabase("LittleProblem");
-            var members = db.GetCollection<Member>("members");
-
-            var member = members.AsQueryable()
-                .FirstOrDefault(m => m.OpenId.Equals(openId));
-            if (member == null)
-            { return CreateOnFirstLogIn(openId, email);}
-            else
-            {
-                return member;
-            }
-
+            var member = _membersCollection.AsQueryable()
+                .FirstOrDefault(m => m.OpenId == openId);
+            return member ?? CreateOnFirstLogIn(openId, email);
         }
         
         public Member CreateOnFirstLogIn(string openId, string email)
         {
-            var mongoServ = MongoServer.Create("mongodb://localhost");
-
-            var db = mongoServ.GetDatabase("LittleProblem");
-            var members = db.GetCollection<Member>("members");
-            int nb = members.Count() + 1;
+            int nb = _membersCollection.Count() + 1;
             Member member = new Member
                                 {
                                     OpenId = openId,
@@ -45,8 +40,18 @@ namespace LittleProblem.Data.Services
                                     FirstConnection = DateTime.Now,
                                     LastConnection = DateTime.Now
                                 };
-            members.Insert(member);
+            _membersCollection.Save(member);
             return member;
+        }
+
+        public void EditMemberProfile(Member member)
+        {
+            var dbMember = _membersCollection.AsQueryable()
+                .FirstOrDefault(m => m.OpenId == member.OpenId);
+
+            dbMember.UserName = member.UserName;
+            dbMember.Email = member.Email;
+            _membersCollection.Save(dbMember);
         }
     }
 }

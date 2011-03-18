@@ -1,4 +1,6 @@
-﻿using StructureMap.Configuration.DSL;
+﻿using LittleProblem.Data.Repository;
+using LittleProblem.Data.Server;
+using StructureMap.Configuration.DSL;
 using LittleProblem.Data.Services;
 
 namespace LittleProblem.Data
@@ -7,7 +9,11 @@ namespace LittleProblem.Data
     {
         public DataRegistry()
         {
-            For<IMembershipService>().Singleton().Use<MembershipService>();
+            For<IConnexion>().HttpContextScoped().Use(x => new DbConnexion());
+
+            For<IMembershipService>().Use<MembershipService>();
+
+            For<IMemberRepository>().Use<MemberRepository>();
         }
     }
 }

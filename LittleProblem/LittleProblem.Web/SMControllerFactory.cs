@@ -25,7 +25,7 @@ namespace LittleProblem.Web
                 ObjectFactory.BuildUp(controller);
                 return controller;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //Use the default logic.
                 return base.CreateController(requestContext, controllerName);

@@ -1,8 +1,12 @@
 ﻿using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.UI.WebControls;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OpenId;
 using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
 using DotNetOpenAuth.OpenId.RelyingParty;
+using LittleProblem.Data;
+using LittleProblem.Data.Model;
 using LittleProblem.Data.Services;
 using LittleProblem.Web.Models;
 
@@ -12,10 +16,14 @@ namespace LittleProblem.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IMembershipService _membershipService;
+        private readonly IMemberRepository _memberRepository;
 
-        public AccountController(IMembershipService membershipService)
+        public AccountController(
+            IMembershipService membershipService,
+            IMemberRepository memberRepository)
         {
             _membershipService = membershipService;
+            _memberRepository = memberRepository;
         }
 
         public ActionResult LogIn()
@@ -28,25 +36,7 @@ namespace LittleProblem.Web.Controllers
                 switch (response.Status)
                 {
                     case AuthenticationStatus.Authenticated:
-                        // TODO : register user for its first login                       
-                        Session.Add("openid", response.ClaimedIdentifier.ToString());
-                        
-                        ClaimsResponse fetch = response.GetExtension(typeof(ClaimsResponse)) as ClaimsResponse;
-                        string email = null;
-                        if (fetch != null)
-                        {
-                             email = fetch.Email;
-                        }
-                        if (email == null)
-                        {
-                            _membershipService.LogIn(response.ClaimedIdentifier.ToString());
-                        }
-                        else
-                        {
-                            _membershipService.LogIn(response.ClaimedIdentifier.ToString(), email);
-                        }
-                        
-
+                        SuccessfulConnection(response);
                         return RedirectToAction("Index", "Home");
 
                     case AuthenticationStatus.Canceled:
@@ -88,7 +78,67 @@ namespace LittleProblem.Web.Controllers
         public ActionResult LogOut()
         {
             Session.Clear();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Profile()
+        {
+            var member = _memberRepository.GetMember((string) Session["openId"]);
+            if (member == null)
+            {
+                ViewData["Error"] = "This user does not exist.";
+                return View();
+            }
+
+            return View(new ProfileModel
+                            {
+                                Email = member.Email ?? "", 
+                                UserName = member.UserName
+                            });
+        }
+
+        [HttpPost]
+        public ActionResult Profile(ProfileModel model)
+        {
+            var member = new Member{
+                Email = model.Email,
+                UserName = model.UserName,
+                OpenId = (string) Session["openId"]};
+            _membershipService.EditMemberProfile(member);
+            saveSessionInfo(member.UserName, member.OpenId);
+
+            return View(model);
+        }
+
+        private void SuccessfulConnection(IAuthenticationResponse response)
+        {
+            ClaimsResponse fetch = response.GetExtension(typeof(ClaimsResponse)) as ClaimsResponse;
+            string email = null;
+            if (fetch != null)
+            {
+                email = fetch.Email;
+            }
+            Member connectedMember = null;
+            if (email == null)
+            {
+                connectedMember = _membershipService.LogIn(response.ClaimedIdentifier.ToString());
+            }
+            else
+            {
+                connectedMember = _membershipService.LogIn(response.ClaimedIdentifier.ToString(), email);
+            }
+
+            saveSessionInfo(connectedMember.UserName, response.ClaimedIdentifier.ToString());
+        }
+
+        private void saveSessionInfo(string userName, string openId)
+        {
+            FormsAuthentication.SetAuthCookie(userName, false);
+            Session.Add("username", userName);
+            Session.Add("openid", openId);
         }
     }
 }
