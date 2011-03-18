@@ -98,7 +98,8 @@ openid = {
 		} else {
 			$('#openid_input_area').empty();
 			if (!onload) {
-				$('#openid_form').submit();
+				//$('#openid_form').submit();
+				this.submit();
 			}
 		}
 	},
@@ -118,11 +119,7 @@ openid = {
 			alert(openid.demo_text + "\r\n" + document.getElementById(openid.input_id).value);
 			return false;
 		}
-		if (url.indexOf("javascript:") == 0) {
-			url = url.substr("javascript:".length);
-			eval(url);
-			return false;
-		}
+		
 		return true;
 	},
 
@@ -130,12 +127,7 @@ openid = {
 	 * @return {Void}
 	 */
 	setOpenIdUrl : function(url) {
-		var hidden = document.getElementById(this.input_id);
-		if (hidden != null) {
-			hidden.value = url;
-		} else {
-			$('#openid_form').append('<input type="hidden" id="' + this.input_id + '" name="' + this.input_id + '" value="' + url + '"/>');
-		}
+		$("#OpenId").val(url);
 	},
 
 	/**
@@ -175,25 +167,8 @@ openid = {
 	 * @return {Void}
 	 */
 	useInputBox : function(provider) {
-		var input_area = $('#openid_input_area');
-		var html = '';
-		var id = 'openid_username';
-		var value = '';
-		var label = provider['label'];
-		var style = '';
-		if (label) {
-			html = '<p>' + label + '</p>';
-		}
-		if (provider['name'] == 'OpenID') {
-			id = this.input_id;
-			value = 'http://';
-			style = 'background: #FFF url(' + this.img_path + 'openid-inputicon.gif) no-repeat scroll 0 50%; padding-left:18px;';
-		}
-		html += '<input id="' + id + '" type="text" style="' + style + '" name="' + id + '" value="' + value + '" />'
-				+ '<input id="openid_submit" type="submit" value="' + this.signin_text + '"/>';
-		input_area.empty();
-		input_area.append(html);
-		$('#' + id).focus();
+        $("#OpenId").val(provider.url);
+		$('#OpenId').focus();
 	},
 
 	setDemoMode : function(demoMode) {
