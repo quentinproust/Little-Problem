@@ -12,11 +12,11 @@ openid = {
 	version : '1.3', // version constant
 	demo : false,
 	demo_text : null,
-	cookie_expires : 6 * 30, // 6 months.
+	cookie_expires : 1 * 30, // 1 months.
 	cookie_name : 'openid_provider',
 	cookie_path : '/',
 
-	img_path : 'images/',
+	img_path : '/Content/Images/openid-images/images/',
 	locale : null, // is set in openid-<locale>.js
 	sprite : null, // usually equals to locale, is set in
 	// openid-<locale>.js
@@ -35,12 +35,8 @@ openid = {
 	 * @return {Void}
 	 */
 	init : function(input_id) {
-        providers_large : "image.large";
-	    providers_small : "image.small";
-
-	
-
 		providers = $.extend({}, providers_large, providers_small);
+		
 		var openid_btns = $('#openid_btns');
 		this.input_id = input_id;
 		$('#openid_choice').show();

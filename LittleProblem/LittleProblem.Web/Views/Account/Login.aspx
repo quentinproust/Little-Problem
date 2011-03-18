@@ -12,33 +12,22 @@
 		<%= Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.") %>
 		<div>
 			<fieldset>
-				<legend>Account Information</legend>
+				<legend>Select you open provider !</legend>
 				
-				<div class="editor-label">
-					<%= Html.LabelFor(m => m.OpenId) %>
-				</div>
-				<div class="editor-field">
-					<%= Html.TextBoxFor(m => m.OpenId) %>
-					<%= Html.ValidationMessageFor(m => m.OpenId) %>
-				</div>
-				
-				<p>
-					<input type="submit" value="Log In" />
-				</p>
-
-
+				<div id="openid_input_area"></div>
 
 				<div class="openid_choice">  
 					<p>Please click your account provider:</p>  
 					<div id="openid_btns"></div>  
 				</div>                                 
 				 
-				<div id="openid_input_area">  
-					<%= Html.TextBox("openid_identifier") %>  
-					<input type="submit" value="Log On" />  
-				</div>  
+                <p class="clear">
+				    <%= Html.TextBoxFor(m => m.OpenId)%>
+                    <input type="submit" value="Log In" />
+			    </p>
+
 				<noscript>  
-				<p>OpenID is service that allows you to log-on to many different websites using a single indentity.  
+				    <p>OpenID is service that allows you to log-on to many different websites using a single indentity.  
 				Find out <a href="http://openid.net/what/">more about OpenID</a> and <a href="http://openid.net/get/">how to get an OpenID enabled account</a>.</p>  
 				</noscript>  
 
@@ -46,7 +35,8 @@
 		</div>
 	<% } %>
 
-	<script type="text/javascript" src="../../Scripts/openid-jquery.js"></script>  
+    <script type="text/javascript" src="../../Scripts/openid-jquery.js"></script>
+    <script type="text/javascript" src="../../Scripts/openid-en.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
 			openid.init('openid_identifier');
