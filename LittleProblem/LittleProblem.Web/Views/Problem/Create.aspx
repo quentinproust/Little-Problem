@@ -7,7 +7,17 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Enter your problem</h2>
-    <% using (Html.BeginForm()) { %>
+     <%if (ViewData["Error"] != null)
+	   {%>
+
+		<div class="error">
+			<%= ViewData["Error"] %>
+		</div>
+    <%
+	   }
+	   else
+	   {
+           using (Html.BeginForm()) { %>
 		<%= Html.ValidationSummary(true, "") %>
 		<div>
 			<fieldset>

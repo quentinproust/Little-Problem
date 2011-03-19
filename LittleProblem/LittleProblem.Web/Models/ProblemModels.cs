@@ -17,6 +17,13 @@ namespace LittleProblem.Web.Models
     {
         [Required(ErrorMessage = "An empty response isn't a response.")]
         public string Text { get; set; }
+
+        public string ProblemId { get; set; }
+    }
+
+    public class ActionOnProblemModel
+    {
+        public string ProblemId { get; set; }
     }
     #endregion
 
