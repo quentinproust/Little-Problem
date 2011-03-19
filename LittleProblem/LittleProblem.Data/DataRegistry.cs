@@ -14,6 +14,8 @@ namespace LittleProblem.Data
             For<IMembershipService>().Use<MembershipService>();
 
             For<IMemberRepository>().Use<MemberRepository>();
+
+            For<IProblemRepository>().Use<ProblemRepository>();
         }
     }
 }

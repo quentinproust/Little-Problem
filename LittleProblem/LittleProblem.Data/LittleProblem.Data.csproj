@@ -53,9 +53,12 @@
   <ItemGroup>
     <Compile Include="CollectionNames.cs" />
     <Compile Include="DataRegistry.cs" />
+    <Compile Include="Model\Problem.cs" />
+    <Compile Include="Model\Response.cs" />
     <Compile Include="Repository\IMemberRepository.cs" />
     <Compile Include="Model\Member.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IProblemRepository.cs" />
     <Compile Include="Repository\MemberRepository.cs" />
     <Compile Include="Server\DbConnexion.cs" />
     <Compile Include="Server\IConnexion.cs" />
