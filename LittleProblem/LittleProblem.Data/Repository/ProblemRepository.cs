@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using FluentMongo.Linq;
 using LittleProblem.Data.Model;
 using LittleProblem.Data.Server;
@@ -16,6 +18,23 @@ namespace LittleProblem.Data.Repository
         {
             _connexion = conn;
             _problemsCollection = _connexion.Collection<Problem>(CollectionNames.Problem);
+        }
+
+        public List<Problem> All()
+        {
+            return _problemsCollection.AsQueryable()
+                .OrderBy(p => p.OpenedDate)
+                .Take(10)
+                .ToList();
+        }
+
+        public List<Problem> All(int start)
+        {
+            return _problemsCollection.AsQueryable()
+                .OrderBy(p => p.OpenedDate)
+                .Skip(start)
+                .Take(10)
+                .ToList();
         }
 
         public Problem GetProblem(string id)

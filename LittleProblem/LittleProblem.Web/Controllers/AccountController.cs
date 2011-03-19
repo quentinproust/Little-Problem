@@ -108,7 +108,7 @@ namespace LittleProblem.Web.Controllers
                 UserName = model.UserName,
                 OpenId = (string) Session["openId"]};
             _membershipService.EditMemberProfile(member);
-            saveSessionInfo(member.UserName, member.OpenId);
+            SaveSessionInfo(member.UserName, member.OpenId);
 
             return View(model);
         }
@@ -121,20 +121,14 @@ namespace LittleProblem.Web.Controllers
             {
                 email = fetch.Email;
             }
-            Member connectedMember = null;
-            if (email == null)
-            {
-                connectedMember = _membershipService.LogIn(response.ClaimedIdentifier.ToString());
-            }
-            else
-            {
-                connectedMember = _membershipService.LogIn(response.ClaimedIdentifier.ToString(), email);
-            }
+            Member connectedMember = email == null 
+                                         ? _membershipService.LogIn(response.ClaimedIdentifier.ToString()) 
+                                         : _membershipService.LogIn(response.ClaimedIdentifier.ToString(), email);
 
-            saveSessionInfo(connectedMember.UserName, response.ClaimedIdentifier.ToString());
+            SaveSessionInfo(connectedMember.UserName, response.ClaimedIdentifier.ToString());
         }
 
-        private void saveSessionInfo(string userName, string openId)
+        private void SaveSessionInfo(string userName, string openId)
         {
             FormsAuthentication.SetAuthCookie(userName, false);
             Session.Add("username", userName);

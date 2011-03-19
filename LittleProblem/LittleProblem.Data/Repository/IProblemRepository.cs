@@ -8,6 +8,8 @@ namespace LittleProblem.Data.Repository
 {
     public interface IProblemRepository
     {
+        List<Problem> All();
+        List<Problem> All(int start);
         Problem GetProblem(string id);
     }
 }

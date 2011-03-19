@@ -15,5 +15,10 @@ namespace LittleProblem.Data.Model
         public string Title { get; set; }
         public string Text { get; set; }
         public List<Response> Responses { get; set; }
+
+        public Problem()
+        {
+            Responses = new List<Response>();
+        }
     }
 }
