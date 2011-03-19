@@ -15,12 +15,12 @@ namespace LittleProblem.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            routes.MapRoute(
-                "Problems", // Route name
-                "{controller}/{action}/{problemId}", // URL with parameters
-                new { controller = "Problem", action = "Create", problemId = "" } // Parameter defaults
-            );
+//
+//            routes.MapRoute(
+//                "Problems", // Route name
+//                "Problem/{action}/{problemId}", // URL with parameters
+//                new { action = "Create", problemId = "" } // Parameter defaults
+//            );
 
             routes.MapRoute(
                 "Default", // Route name
@@ -35,6 +35,7 @@ namespace LittleProblem.Web
             AreaRegistration.RegisterAllAreas();
 
             RegisterRoutes(RouteTable.Routes);
+            //RouteDebug.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
         }
     }
 }

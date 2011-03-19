@@ -27,9 +27,9 @@ namespace LittleProblem.Web.Controllers
             _problemRepository = problemRepository;
         }
 
-        public ActionResult Details(String problemId)
+        public ActionResult Details(String id)
         {
-            var problem = _problemRepository.Get(problemId);
+            var problem = _problemRepository.Get(id);
             if (problem == null)
             {
                 ViewData["Error"] = "This problem was not found.";
@@ -47,7 +47,7 @@ namespace LittleProblem.Web.Controllers
                 return View();
             }
             Problem problem = _problemService.CreateProblem(model.Title, model.Text, member);
-            return new RedirectResult("/");
+            return RedirectToAction("Details", new { id = problem.Id.ToString() });
         }
 
         [HttpPost]
@@ -60,7 +60,7 @@ namespace LittleProblem.Web.Controllers
                 return Redirect("/Login.aspx");
             }
             _problemService.AddResponse(model.ProblemId, model.Text, member);
-            return new RedirectResult("/");
+            return RedirectToAction("Details", new { id = model.ProblemId });
         }
 
         [HttpPost]

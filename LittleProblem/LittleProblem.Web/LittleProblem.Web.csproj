@@ -36,6 +36,10 @@
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\lib\DotNetOpenAuth.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson, Version=0.11.0.4042, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="RouteDebug">
+      <HintPath>..\packages\routedebugger.1.0.0\lib\RouteDebug.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\lib\StructureMap.dll</HintPath>
     </Reference>
@@ -177,6 +181,7 @@
     <Content Include="Views\Problem\Create.aspx" />
     <Content Include="Views\Problem\Details.aspx" />
     <Content Include="Views\Shared\LogOnUserControl.ascx" />
+    <Content Include="Views\Shared\ResponseForm.ascx" />
     <Content Include="Views\Threads\Posts.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -212,6 +217,9 @@
       <Project>{93C7165B-881C-4A2A-9FC9-FAF82B58A9C5}</Project>
       <Name>LittleProblem.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
