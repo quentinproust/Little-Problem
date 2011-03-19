@@ -1,5 +1,5 @@
 if($args[0].equals("start")) {
-d:/tools/mongodb/bin/mongod.exe --dbpath d:/tools/mongodb/data
+E:/Mongo/mongoDB/bin/mongod.exe --dbpath E:/Mongo/mongoDB/data
 } elseif ($args[0].equals("shell")) {
-d:/tools/mongodb/bin/mongo.exe 
+E:/Mongo/mongoDB/bin/mongo.exe 
 } 

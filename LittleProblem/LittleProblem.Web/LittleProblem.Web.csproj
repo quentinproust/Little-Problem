@@ -172,6 +172,7 @@
     <Content Include="Views\Account\Login.aspx" />
     <Content Include="Views\Account\Profile.aspx" />
     <Content Include="Views\Shared\LogOnUserControl.ascx" />
+    <Content Include="Views\Threads\Posts.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
