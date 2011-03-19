@@ -13,28 +13,19 @@ namespace LittleProblem.Web.Controllers
 {
     public class ProblemController : Controller
     {
+
         private readonly IMemberRepository _memberRepository;
         private readonly IProblemService _problemService;
         private readonly IProblemRepository _problemRepository;
-        
-        public ProblemController(
-            IMemberRepository memberRepository, 
-            IProblemService problemService, 
-            IProblemRepository problemRepository)
+        //
+        // GET: /Problem/
+<<<<<<< Updated upstream
+
+        public ProblemController(IMemberRepository memberRepository, IProblemService problemService, IProblemRepository problemRepository)
         {
             _memberRepository = memberRepository;
             _problemService = problemService;
             _problemRepository = problemRepository;
-        }
-
-        public ActionResult Details(String problemId)
-        {
-            var problem = _problemRepository.Get(problemId);
-            if (problem == null)
-            {
-                ViewData["Error"] = "This problem was not found.";
-            }
-            return View(problem);
         }
 
         [HttpPost]
@@ -65,6 +56,9 @@ namespace LittleProblem.Web.Controllers
 
         [HttpPost]
         public ActionResult Close(ActionOnProblemModel model)
+=======
+        public ActionResult CreateProblem()
+>>>>>>> Stashed changes
         {
             var member = _memberRepository.GetMember((string)Session["openId"]);
             if (member == null)
@@ -73,6 +67,11 @@ namespace LittleProblem.Web.Controllers
                 return Redirect("/Login.aspx");
             }
             return new RedirectResult("/");
+        }
+
+        public ActionResult Details(String problemId)
+        {
+            return View();
         }
 
     }

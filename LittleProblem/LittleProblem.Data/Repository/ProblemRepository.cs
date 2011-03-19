@@ -37,9 +37,10 @@ namespace LittleProblem.Data.Repository
                 .ToList();
         }
 
-        public Problem GetProblem(string id)
+        public Problem Get(string id)
         {
-            return _problemsCollection.AsQueryable().FirstOrDefault(x => x.Id == new ObjectId(id));
+            return _problemsCollection.AsQueryable()
+                .FirstOrDefault(x => x.Id == new ObjectId(id));
         }
     }
 }

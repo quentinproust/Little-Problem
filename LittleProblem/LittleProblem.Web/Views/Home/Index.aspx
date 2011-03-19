@@ -16,7 +16,8 @@
                   foreach (var problem in Model)
                   {%>
             <div>
-                <a href="" ><%= problem.Title %></a> | <%= problem.Responses.Count %>
+                 <%= Html.ActionLink(problem.Title, "Details", "Problem", new { id = problem.Id.ToString() }, null)%>
+                | <%= problem.Responses.Count %>
             </div>
         <%
                   }

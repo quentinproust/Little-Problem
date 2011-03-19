@@ -10,6 +10,6 @@ namespace LittleProblem.Data.Repository
     {
         List<Problem> All();
         List<Problem> All(int start);
-        Problem GetProblem(string id);
+        Problem Get(string id);
     }
 }

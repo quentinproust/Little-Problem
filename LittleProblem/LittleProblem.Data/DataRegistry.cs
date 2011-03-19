@@ -12,9 +12,9 @@ namespace LittleProblem.Data
             For<IConnexion>().HttpContextScoped().Use(x => new DbConnexion());
 
             For<IMembershipService>().Use<MembershipService>();
+            For<IProblemService>().Use<ProblemService>();
 
             For<IMemberRepository>().Use<MemberRepository>();
-
             For<IProblemRepository>().Use<ProblemRepository>();
         }
     }
