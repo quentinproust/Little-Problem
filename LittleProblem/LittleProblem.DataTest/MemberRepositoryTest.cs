@@ -7,6 +7,7 @@ using LittleProblem.Data.Model;
 using LittleProblem.Data.Repository;
 using LittleProblem.Data.Server;
 using LittleProblem.Data.Services;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using NUnit.Framework;
 
@@ -45,6 +46,27 @@ namespace LittleProblem.DataTest
             Member result = _memberRepository.Get(openId);
 
             Assert.That(result, Is.Not.Null);
+            Assert.That(result.OpenId, Is.EqualTo(openId));
+            Assert.That(result.UserName, Is.EqualTo(userName));
+        }
+
+        [Test]
+        public void GetAMemberFromItsMongoId()
+        {
+            string openId = "testuser.openid.com.test";
+            string userName = "UserTest";
+
+            var objectId = ObjectId.GenerateNewId();
+            members.Insert(new Member()
+            {
+                Id = objectId,
+                OpenId = openId,
+                UserName = userName
+            });
+            Member result = _memberRepository.Get(objectId);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Id, Is.EqualTo(objectId));
             Assert.That(result.OpenId, Is.EqualTo(openId));
             Assert.That(result.UserName, Is.EqualTo(userName));
         }

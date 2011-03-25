@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbConnexionTest.cs" />
     <Compile Include="MemberRepositoryTest.cs" />
     <Compile Include="MembershipServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

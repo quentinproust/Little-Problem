@@ -15,11 +15,17 @@
 	</p>
 
 	<h3>Responses to this problem :</h3>
-	<div>
+	<div id="responses">
 	<% foreach (var response in Model.Responses) { %>
-		<p>
-			<strong><%= Html.Encode(response.Text) %></strong> by <em><%= response.Submitter.UserName %></em>
-		</p>
+		<div class="response">
+			<div class="message">
+				<strong><%= Html.Encode(response.Text) %></strong>
+			</div>
+			<div class="user">
+				by <em><%= response.Submitter.UserName %></em>
+			</div>
+            <div class="note"><a href="">up</a> | <a href="">down</a></div>
+		</div>
 	<%    } %>
 	</div>
 

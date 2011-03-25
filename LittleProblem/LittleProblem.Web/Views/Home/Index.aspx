@@ -9,19 +9,17 @@
     <div>
         <h2>Last problems submitted by members</h2>
 
-        <div>
+        <div id="problems">
         <% if (Model.Count == 0) { %>
             No problems has yet to be submitted.
         <% } else {
                   foreach (var problem in Model)
                   {%>
-            <div>
-                 <%= Html.ActionLink(problem.Title, "Details", "Problem", new { id = problem.Id.ToString() }, null)%>
-                | <%= problem.Responses.Count %>
+            <div class="problem">
+                <div class="answers"><%= problem.Responses.Count %></div>
+                <div class="description"><%= Html.ActionLink(problem.Title, "Details", "Problem", new { id = problem.Id.ToString() }, null)%></div>
             </div>
-        <%
-                  }
-} %>
+        <% } } %>
         </div>
     </div>
 </asp:Content>
