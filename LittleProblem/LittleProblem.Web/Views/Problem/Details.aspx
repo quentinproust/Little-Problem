@@ -7,21 +7,18 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-	<h2><%= Html.Encode(Model.Title) %></h2>
+	<h2>Problem <em><%= Html.Encode(Model.Title) %></em></h2>
 	<div>Submitted on <%= Html.Encode(String.Format("{0:g}", Model.OpenedDate)) %></div>
 	<h3>Description</h3>
 	<p>
 		<%= Html.Encode(Model.Text) %>
 	</p>
 
-    <h3>Description</h3>
+    <h3>Responses to this problem :</h3>
 	<div>
-    <% foreach (var response in Model.Responses)
-{
-  
-  %>
+    <% foreach (var response in Model.Responses) { %>
         <p>
-	        <%= Html.Encode(response.Text) %>
+	        <strong><%= Html.Encode(response.Text) %></strong> by <em><%= response.UserId %></em>
         </p>
     <%    } %>
     </div>

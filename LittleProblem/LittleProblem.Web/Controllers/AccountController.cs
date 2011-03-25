@@ -82,7 +82,7 @@ namespace LittleProblem.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Authorize]
+        [OpenIdAuthorize]
         [HttpGet]
         public ActionResult Profile()
         {
@@ -100,6 +100,7 @@ namespace LittleProblem.Web.Controllers
                             });
         }
 
+        [OpenIdAuthorize]
         [HttpPost]
         public ActionResult Profile(ProfileModel model)
         {
@@ -130,7 +131,6 @@ namespace LittleProblem.Web.Controllers
 
         private void SaveSessionInfo(string userName, string openId)
         {
-            FormsAuthentication.SetAuthCookie(userName, false);
             Session.Add("username", userName);
             Session.Add("openid", openId);
         }

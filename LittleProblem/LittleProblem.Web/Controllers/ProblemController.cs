@@ -37,6 +37,14 @@ namespace LittleProblem.Web.Controllers
             return View(problem);
         }
 
+        [OpenIdAuthorize]
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [OpenIdAuthorize]
         [HttpPost]
         public ActionResult Create(ProblemModel model)
         {
@@ -50,6 +58,7 @@ namespace LittleProblem.Web.Controllers
             return RedirectToAction("Details", new { id = problem.Id.ToString() });
         }
 
+        [OpenIdAuthorize]
         [HttpPost]
         public ActionResult Answer(ResponseModel model)
         {
@@ -63,6 +72,7 @@ namespace LittleProblem.Web.Controllers
             return RedirectToAction("Details", new { id = model.ProblemId });
         }
 
+        [OpenIdAuthorize]
         [HttpPost]
         public ActionResult Close(ActionOnProblemModel model)
         {

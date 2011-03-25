@@ -8,6 +8,7 @@ using LittleProblem.Data;
 using LittleProblem.Data.Model;
 using LittleProblem.Data.Repository;
 using LittleProblem.Data.Services;
+using NLog;
 
 namespace LittleProblem.Web.Controllers
 {

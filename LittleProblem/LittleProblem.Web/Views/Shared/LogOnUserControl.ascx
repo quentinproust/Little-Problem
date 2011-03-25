@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
 <%
-    if (Request.IsAuthenticated) {
+    if (Session["openid"] != null) {
 %>
-        Welcome <b><%= Html.Encode(Page.User.Identity.Name) %></b> !
+        Welcome <b><%= Html.Encode(Session["username"]) %></b> !
         [ <%= Html.ActionLink("Profile", "Profile", "Account") %> ]
         [ <%= Html.ActionLink("Log Out", "LogOut", "Account") %> ]
 <%
