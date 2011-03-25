@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LittleProblem.Data.Model.Problem>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LittleProblem.Data.Aggregate.ProblemAggregate>" %>
 <%@ Import Namespace="LittleProblem.Web.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -14,15 +14,14 @@
 		<%= Html.Encode(Model.Text) %>
 	</p>
 
-    <h3>Responses to this problem :</h3>
+	<h3>Responses to this problem :</h3>
 	<div>
-    <% foreach (var response in Model.Responses) { %>
-        <p>
-	        <strong><%= Html.Encode(response.Text) %></strong> by <em><%= response.UserId %></em>
-        </p>
-    <%    } %>
-    </div>
-
+	<% foreach (var response in Model.Responses) { %>
+		<p>
+			<strong><%= Html.Encode(response.Text) %></strong> by <em><%= response.Submitter.UserName %></em>
+		</p>
+	<%    } %>
+	</div>
 
 	<% Html.RenderPartial("ResponseForm", new ResponseModel { ProblemId = Model.Id.ToString() }); %>
 </asp:Content>

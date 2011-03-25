@@ -42,7 +42,7 @@ namespace LittleProblem.DataTest
                                    OpenId = openId,
                                    UserName = userName
                                });
-            Member result = _memberRepository.GetMember(openId);
+            Member result = _memberRepository.Get(openId);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.OpenId, Is.EqualTo(openId));

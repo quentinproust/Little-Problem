@@ -5,6 +5,7 @@ using System.Text;
 using FluentMongo.Linq;
 using LittleProblem.Data.Model;
 using LittleProblem.Data.Server;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace LittleProblem.Data.Repository
@@ -20,10 +21,14 @@ namespace LittleProblem.Data.Repository
             _membersCollection = _connexion.Collection<Member>(CollectionNames.Member);
         }
 
-        public Member GetMember(string openId)
+        public Member Get(string openId)
         {
             return _membersCollection.AsQueryable().FirstOrDefault(x => x.OpenId == openId);
         }
 
+        public Member Get(ObjectId id)
+        {
+            return _membersCollection.AsQueryable().FirstOrDefault(x => x.Id == id);
+        }
     }
 }

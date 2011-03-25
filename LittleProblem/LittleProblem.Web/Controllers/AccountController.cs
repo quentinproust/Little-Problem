@@ -86,7 +86,7 @@ namespace LittleProblem.Web.Controllers
         [HttpGet]
         public ActionResult Profile()
         {
-            var member = _memberRepository.GetMember((string) Session["openId"]);
+            var member = _memberRepository.Get((string) Session["openId"]);
             if (member == null)
             {
                 ViewData["Error"] = "This user does not exist.";

@@ -48,7 +48,7 @@ namespace LittleProblem.Web.Controllers
         [HttpPost]
         public ActionResult Create(ProblemModel model)
         {
-            var member = _memberRepository.GetMember((string) Session["openId"]);
+            var member = _memberRepository.Get((string) Session["openId"]);
             if (member == null)
             {
                 ViewData["Error"] = "There is no known user.";
@@ -62,7 +62,7 @@ namespace LittleProblem.Web.Controllers
         [HttpPost]
         public ActionResult Answer(ResponseModel model)
         {
-            var member = _memberRepository.GetMember((string)Session["openId"]);
+            var member = _memberRepository.Get((string)Session["openId"]);
             if (member == null)
             {
                 ViewData["Error"] = "There is no known user.";
@@ -76,7 +76,7 @@ namespace LittleProblem.Web.Controllers
         [HttpPost]
         public ActionResult Close(ActionOnProblemModel model)
         {
-            var member = _memberRepository.GetMember((string)Session["openId"]);
+            var member = _memberRepository.Get((string)Session["openId"]);
             if (member == null)
             {
                 ViewData["Error"] = "There is no known user.";
