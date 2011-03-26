@@ -64,6 +64,30 @@ namespace LittleProblem.Data.Services
         public void ValidateAsASolution(string problemId, Member member, Response response)
         {
             CloseProblem(problemId, member);
+            NoteResponse(problemId, response.Id.ToString(), member, +1);
+        }
+
+        public void DownResponse(string problemId, string responseId, Member member)
+        {
+            NoteResponse(problemId, responseId, member, -1);
+        }
+
+        public void UpResponse(string problemId, string responseId, Member member)
+        {
+            NoteResponse(problemId, responseId, member, +1);
+        }
+
+        private void NoteResponse(string problemId, string responseId, Member member, int note)
+        {
+            var problem = _problemsCollection.AsQueryable()
+                .FirstOrDefault(m => m.Id == new ObjectId(problemId));
+            var response = problem.Responses.Where(r => r.Id == new ObjectId(responseId)).First();
+            if (response.UserId.Equals(member.Id))
+            {
+                throw new AccessViolationException("You can't note yourself");
+            }
+            response.Note += note;
+            _problemsCollection.Save(problem);
         }
     }
 }

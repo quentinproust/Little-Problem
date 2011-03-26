@@ -82,5 +82,23 @@ namespace LittleProblem.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [OpenIdAuthorize]
+        [HttpGet]
+        public ActionResult Up(String id, String responseId)
+        {
+            var member = _memberRepository.Get((string)Session["openId"]);
+            _problemService.UpResponse(id, responseId, member);
+            return RedirectToAction("Details", new { id = id });
+        }
+
+        [OpenIdAuthorize]
+        [HttpGet]
+        public ActionResult Down(String id, String responseId)
+        {
+            var member = _memberRepository.Get((string)Session["openId"]);
+            _problemService.DownResponse(id, responseId, member);
+            return RedirectToAction("Details", new { id = id });   
+        }
+
     }
 }

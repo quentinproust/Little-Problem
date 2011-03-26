@@ -17,5 +17,7 @@ namespace LittleProblem.Data
         /// <param name="id">Object Id</param>
         /// <returns>Existing member.</returns>
         Member Get(ObjectId id);
+
+        int GetNote(ObjectId id);
     }
 }

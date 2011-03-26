@@ -15,18 +15,24 @@ namespace LittleProblem.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-//
-//            routes.MapRoute(
-//                "Problems", // Route name
-//                "Problem/{action}/{problemId}", // URL with parameters
-//                new { action = "Create", problemId = "" } // Parameter defaults
-//            );
+            routes.MapRoute(
+                "ResponseNoteUp", // Route name
+                "Problem/Up/{id}-{responseId}", // URL with parameters
+                new { controller = "Problem", action = "Up", id = "", responseId = "" } // Parameter defaults
+            );
 
+            routes.MapRoute(
+                "ResponseNoteDown", // Route name
+                "Problem/Down/{id}-{responseId}", // URL with parameters
+                new { controller = "Problem", action = "Down", id = "", responseId = "" } // Parameter defaults
+            );
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
+            
+            
         }
 
         protected void Application_Start()

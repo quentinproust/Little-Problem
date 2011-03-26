@@ -1,0 +1,17 @@
+mapUserNote = function() {
+	this.Responses.forEach(function(res) {
+			emit(res.UserId, res.Note);
+	});
+}
+
+reduceNotes = function(key, vals) {
+	var note = 0;
+	for(var n = 0; n < vals.length; n++) {
+		note += vals[n];
+	}
+	return note;
+}
+
+var op = db.problems.mapReduce(mapUserNote, reduceNotes, {});
+
+db.notes.find();

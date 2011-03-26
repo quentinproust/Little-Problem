@@ -58,13 +58,14 @@ namespace LittleProblem.Data.Repository
 
             List<ResponseAggregate> responses =
                 problem.Responses.Select(res => new ResponseAggregate {
+                    Id = res.Id.ToString(),
                     Text = res.Text,
                     Note = res.Note,
                     Submitter = members.Where(m => m.Id == res.UserId).FirstOrDefault()
                 }).ToList();
 
             return new ProblemAggregate {
-                                    Id = problem.Id,
+                                    Id = problem.Id.ToString(),
                                     OpenedDate = problem.OpenedDate,
                                     Text = problem.Text,
                                     Title = problem.Title,
