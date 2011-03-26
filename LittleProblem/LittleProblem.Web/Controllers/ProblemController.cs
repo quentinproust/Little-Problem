@@ -73,16 +73,12 @@ namespace LittleProblem.Web.Controllers
         }
 
         [OpenIdAuthorize]
-        [HttpPost]
-        public ActionResult Close(ActionOnProblemModel model)
+        [HttpGet]
+        public ActionResult Close(String id)
         {
             var member = _memberRepository.Get((string)Session["openId"]);
-            if (member == null)
-            {
-                ViewData["Error"] = "There is no known user.";
-                return Redirect("/Login.aspx");
-            }
-            return new RedirectResult("/");
+            _problemService.CloseProblem(id, member);
+            return RedirectToAction("Index", "Home");
         }
 
     }

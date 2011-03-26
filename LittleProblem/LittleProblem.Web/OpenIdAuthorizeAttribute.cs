@@ -10,7 +10,8 @@ namespace LittleProblem.Web
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            return httpContext.Session["openid"] != null;
+            if (httpContext.Session != null) return httpContext.Session["openid"] != null;
+            return false;
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)

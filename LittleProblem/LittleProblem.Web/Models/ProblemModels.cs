@@ -20,11 +20,6 @@ namespace LittleProblem.Web.Models
 
         public string ProblemId { get; set; }
     }
-
-    public class ActionOnProblemModel
-    {
-        public string ProblemId { get; set; }
-    }
     #endregion
 
 }

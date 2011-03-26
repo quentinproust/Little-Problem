@@ -215,6 +215,12 @@ input[type="password"]
     border: 1px solid #CCC;
 }
 
+textarea 
+{
+    height: 100px;   
+    width: 400px;
+}
+
 /* TABLE
 ----------------------------------------------------------*/
 
@@ -354,6 +360,10 @@ div#title
     display: inline-block;
     font-size: 14px;
     margin-left: 30px;
+}
+.problem.closed .description
+{
+    text-decoration: line-through;   
 }
 .problem .answers 
 {

@@ -44,7 +44,8 @@ namespace LittleProblem.Data.Repository
             Problem problem = _problemsCollection.AsQueryable()
                 .FirstOrDefault(x => x.Id == new ObjectId(id));
 
-            IEnumerable<ObjectId> userIds = problem.Responses.Select(x => x.UserId);
+            List<ObjectId> userIds = problem.Responses.Select(x => x.UserId).ToList();
+            userIds.Add(problem.UserId);
 
             var bsonObjectIds = userIds.Select(x => new BsonObjectId(x)).ToArray();
             var query = Query.In("_id", bsonObjectIds);
@@ -56,9 +57,7 @@ namespace LittleProblem.Data.Repository
                 problem.Responses.Select(res => new ResponseAggregate {
                     Text = res.Text,
                     Note = res.Note,
-                    Submitter =
-                        members.Where(m => m.Id == res.UserId).
-                        FirstOrDefault()
+                    Submitter = members.Where(m => m.Id == res.UserId).FirstOrDefault()
                 }).ToList();
 
             return new ProblemAggregate {
@@ -66,7 +65,8 @@ namespace LittleProblem.Data.Repository
                                     OpenedDate = problem.OpenedDate,
                                     Text = problem.Text,
                                     Title = problem.Title,
-                                    Responses = responses
+                                    Responses = responses,
+                                    Submitter = members.Where(m => m.Id == problem.UserId).First()
                                 };
         }
     }
