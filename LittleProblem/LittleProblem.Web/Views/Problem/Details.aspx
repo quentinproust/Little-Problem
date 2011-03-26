@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LittleProblem.Data.Aggregate.ProblemAggregate>" %>
 <%@ Import Namespace="LittleProblem.Web" %>
+<%@ Import Namespace="LittleProblem.Web.Helpers" %>
 <%@ Import Namespace="LittleProblem.Web.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -36,6 +37,6 @@
 	<%    } %>
 	</div>
 
-	<% Html.RenderPartial("ResponseForm", new ResponseModel { ProblemId = Model.Id.ToString() }); %>
+	<% if(!Model.IsClosed) Html.RenderPartial("ResponseForm", new ResponseModel { ProblemId = Model.Id.ToString() }); %>
 </asp:Content>
 

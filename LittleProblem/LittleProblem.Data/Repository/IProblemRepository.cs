@@ -9,5 +9,6 @@ namespace LittleProblem.Data.Repository
         List<Problem> All();
         List<Problem> All(int start);
         ProblemAggregate Get(string id);
+        int Count();
     }
 }

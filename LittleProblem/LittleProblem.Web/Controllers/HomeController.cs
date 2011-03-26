@@ -22,11 +22,13 @@ namespace LittleProblem.Web.Controllers
             _problemRepository = problemRepository;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int id = 0)
         {
             ViewData["Message"] = "Welcome to LittleProblems !";
 
-            List<Problem> lastProblems = _problemRepository.All();
+            List<Problem> lastProblems = _problemRepository.All(id);
+            int nbProblem = _problemRepository.Count();
+            ViewData["NbProblem"] = nbProblem;
 
             return View(lastProblems);
         }

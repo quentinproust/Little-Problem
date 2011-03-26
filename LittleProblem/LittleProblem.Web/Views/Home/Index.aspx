@@ -19,5 +19,11 @@
             </div>
         <% } } %>
         </div>
+
+        <div class="pagination">
+            <% for (var p = 0; p < (int)ViewData["NbProblem"] / 10 +1; p++) { %>
+                <%=Html.ActionLink(p.ToString(), "Index", new {id = p})%>
+            <%} %>
+        </div>
     </div>
 </asp:Content>

@@ -24,19 +24,22 @@ namespace LittleProblem.Data.Repository
 
         public List<Problem> All()
         {
-            return _problemsCollection.AsQueryable()
-                .OrderBy(p => p.OpenedDate)
-                .Take(10)
-                .ToList();
+            return All(0);
         }
 
         public List<Problem> All(int start)
         {
             return _problemsCollection.AsQueryable()
-                .OrderBy(p => p.OpenedDate)
-                .Skip(start)
+                .OrderByDescending(x => x.OpenedDate)
+                .Skip(start * 10)
                 .Take(10)
                 .ToList();
+        }
+
+        public int Count()
+        {
+            return _problemsCollection.AsQueryable()
+                .Count();
         }
 
         public ProblemAggregate Get(string id)
@@ -66,6 +69,7 @@ namespace LittleProblem.Data.Repository
                                     Text = problem.Text,
                                     Title = problem.Title,
                                     Responses = responses,
+                                    IsClosed = problem.IsClosed(),
                                     Submitter = members.Where(m => m.Id == problem.UserId).First()
                                 };
         }

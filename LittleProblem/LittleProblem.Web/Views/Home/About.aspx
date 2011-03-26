@@ -6,6 +6,19 @@
 
 <asp:Content ID="aboutContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2>About</h2>
+
+    <h3>Comment démarrer !</h3>
+    <h4>Créer un compte</h4>
+    <p>
+        Pas besoin ! Notre site se base sur le système de connexion OpenId. Lors de votre première connexion,
+        un compte sera créé sans aucune information.
+    </p>
+    <p>
+        Dès lors, vous pourrez changer votre nom d'utilisateur, qui a été défini par défaut comme User24345.
+        Pour communiquer avec les autres membres, un nom plus convivial serait conseillé. Pour cela, 
+        vous pourrez accéder à votre profil sur la page suivante : <a href="/Account/Profile">Profil</a>.
+    </p>
+
     <h3>Liste des dépendences</h3>
     <p>
         De nombreuses librairies ont été utilisées pour le développement de LittleProblem.
