@@ -23,8 +23,6 @@ Vous pourrez trouver plus d'information sur le site <a href="http://mongodb.com"
 
 Les librairies utilisées pour Mongo sont :
 
-[psake-dev](http://groups.google.com/group/psake-dev)
-
 * [Mongo csharp driver](http://www.mongodb.org/display/DOCS/CSharp+Driver+Tutorial)
 * [Fluent Mongo](https://github.com/craiggwilson/fluent-mongo) qui permet de faire des requêtes Linq sur la base Mongo
 
