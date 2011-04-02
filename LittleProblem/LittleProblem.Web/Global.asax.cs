@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using LittleProblem.Quartz;
 
 namespace LittleProblem.Web
 {
@@ -37,7 +38,11 @@ namespace LittleProblem.Web
 
         protected void Application_Start()
         {
+            var bootStrapper = new WebBootStrapper();
+            bootStrapper.Initialize();
+
             ControllerBuilder.Current.SetControllerFactory(new SMControllerFactory());
+
             AreaRegistration.RegisterAllAreas();
 
             RegisterRoutes(RouteTable.Routes);

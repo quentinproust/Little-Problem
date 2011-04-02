@@ -1,12 +1,11 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
-using System.Web.UI.WebControls;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OpenId;
 using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
 using DotNetOpenAuth.OpenId.RelyingParty;
-using LittleProblem.Data;
 using LittleProblem.Data.Model;
+using LittleProblem.Data.Repository;
 using LittleProblem.Data.Services;
 using LittleProblem.Web.Models;
 
@@ -62,17 +61,15 @@ namespace LittleProblem.Web.Controllers
                             "The specified login identifier is invalid");
                 return View();
             }
-            else
-            {
-                var openid = new OpenIdRelyingParty();
-                IAuthenticationRequest request = openid.CreateRequest(
-                    Identifier.Parse(model.OpenId));
 
-                // Require email. We can latter use it for Gravatar 
-                // or for retriving forgotten open id.
-                request.AddExtension(new ClaimsRequest { Email = DemandLevel.Require });
-                return request.RedirectingResponse.AsActionResult();
-            }
+            var openid = new OpenIdRelyingParty();
+            IAuthenticationRequest request = openid.CreateRequest(
+                Identifier.Parse(model.OpenId));
+
+            // Require email. We can latter use it for Gravatar 
+            // or for retriving forgotten open id.
+            request.AddExtension(new ClaimsRequest { Email = DemandLevel.Require });
+            return request.RedirectingResponse.AsActionResult();
         }
 
         public ActionResult LogOut()
@@ -116,7 +113,7 @@ namespace LittleProblem.Web.Controllers
 
         private void SuccessfulConnection(IAuthenticationResponse response)
         {
-            ClaimsResponse fetch = response.GetExtension(typeof(ClaimsResponse)) as ClaimsResponse;
+            var fetch = response.GetExtension(typeof(ClaimsResponse)) as ClaimsResponse;
             string email = null;
             if (fetch != null)
             {

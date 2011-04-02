@@ -1,7 +1,7 @@
 ﻿using LittleProblem.Data.Model;
 using MongoDB.Bson;
 
-namespace LittleProblem.Data
+namespace LittleProblem.Data.Repository
 {
     public interface IMemberRepository
     {
@@ -17,7 +17,5 @@ namespace LittleProblem.Data
         /// <param name="id">Object Id</param>
         /// <returns>Existing member.</returns>
         Member Get(ObjectId id);
-
-        int GetNote(ObjectId id);
     }
 }

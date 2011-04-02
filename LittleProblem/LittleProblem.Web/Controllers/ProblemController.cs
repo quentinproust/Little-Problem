@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using LittleProblem.Data;
-using LittleProblem.Data.Model;
 using LittleProblem.Data.Repository;
 using LittleProblem.Data.Services;
 using LittleProblem.Web.Helpers;
@@ -52,7 +50,7 @@ namespace LittleProblem.Web.Controllers
                 ViewData["Error"] = "There is no known user.";
                 return View();
             }
-            Problem problem = _problemService.CreateProblem(
+            var problem = _problemService.CreateProblem(
                 model.Title, 
                 model.Text.TransformLine(), 
                 member);

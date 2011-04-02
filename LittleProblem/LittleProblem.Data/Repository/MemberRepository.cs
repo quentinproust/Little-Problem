@@ -11,7 +11,7 @@ namespace LittleProblem.Data.Repository
 {
     public class MemberRepository : IMemberRepository
     {
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly IConnexion _connexion;
         private readonly MongoCollection<Member> _membersCollection;
@@ -39,7 +39,7 @@ namespace LittleProblem.Data.Repository
             var result = _connexion.Collection<Problem>(CollectionNames.Problem)
                 .MapReduce(map, reduce);
 
-            logger.Info("Map/Reduce to compute user note has taken "+ result.Duration + ".");
+            Logger.Info("Map/Reduce to compute user note has taken "+ result.Duration + ".");
             if (!result.Ok)
             {
                 throw new Exception("Map reduce failed to compute user note with : " + result.ErrorMessage);

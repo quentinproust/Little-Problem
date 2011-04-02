@@ -32,5 +32,10 @@ namespace LittleProblem.Data.Services
         /// </summary>
         /// <param name="member">Member with edited fields</param>
         void EditMemberProfile(Member member);
+
+        /// <summary>
+        /// Will update note for all users.
+        /// </summary>
+        void UpdateUserNote();
     }
 }

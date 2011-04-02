@@ -2,7 +2,7 @@
 using System.Web.SessionState;
 using LittleProblem.Data.Model;
 
-namespace LittleProblem.Web
+namespace LittleProblem.Web.Helpers
 {
     public static class MemberHelper
     {
@@ -21,7 +21,7 @@ namespace LittleProblem.Web
             if (sessionState != null)
             {
                 var openId = sessionState["openid"];
-                return openId != null && openId == member.OpenId;
+                return openId != null && openId.Equals(member.OpenId);
             }
             return false;
         }

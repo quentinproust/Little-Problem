@@ -4,7 +4,7 @@ namespace LittleProblem.Data.Server
 {
     public class DbConnexion : IConnexion
     {
-        private readonly MongoDatabase db;
+        private readonly MongoDatabase _db;
 
         public DbConnexion() : this("LittleProblem")
         {
@@ -13,12 +13,17 @@ namespace LittleProblem.Data.Server
         public DbConnexion(string databaseName)
         {
             MongoServer server = MongoServer.Create("mongodb://localhost");
-            db = server.GetDatabase(databaseName);
+            _db = server.GetDatabase(databaseName);
+        }
+
+        public MongoDatabase Database
+        {
+            get { return _db; }
         }
 
         public MongoCollection<T> Collection<T>(string colName)
         {
-            return db.GetCollection<T>(colName);
+            return _db.GetCollection<T>(colName);
         }
     }
 }

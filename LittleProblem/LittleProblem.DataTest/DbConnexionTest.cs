@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using LittleProblem.Data;
+﻿using LittleProblem.Data;
 using LittleProblem.Data.Model;
 using LittleProblem.Data.Server;
 using NUnit.Framework;

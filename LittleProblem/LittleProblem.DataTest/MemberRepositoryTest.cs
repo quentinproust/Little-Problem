@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using LittleProblem.Data;
-using LittleProblem.Data.Model;
+﻿using LittleProblem.Data.Model;
 using LittleProblem.Data.Repository;
 using LittleProblem.Data.Server;
-using LittleProblem.Data.Services;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using NUnit.Framework;
@@ -17,29 +11,29 @@ namespace LittleProblem.DataTest
     class MemberRepositoryTest
     {
         private readonly IMemberRepository _memberRepository;
-        private readonly MongoCollection<Member> members;
+        private readonly MongoCollection<Member> _members;
 
         public MemberRepositoryTest()
         {
             IConnexion conn = new DbConnexion("Test_LittleProblem");
             _memberRepository = new MemberRepository(conn);
-            members = conn.Collection<Member>("members");
+            _members = conn.Collection<Member>("members");
         }
 
         [SetUp]
         public void Before()
         {
-            members.RemoveAll();
+            _members.RemoveAll();
         }
 
         [Test]
         public void GetAMemberFromItsOpenId()
         {
-            string openId = "testuser.openid.com";
-            string userName = "UserTest";
+            const string openId = "testuser.openid.com";
+            const string userName = "UserTest";
 
-            members.Insert(new Member()
-                               {
+            _members.Insert(new Member
+                                {
                                    OpenId = openId,
                                    UserName = userName
                                });
@@ -53,12 +47,12 @@ namespace LittleProblem.DataTest
         [Test]
         public void GetAMemberFromItsMongoId()
         {
-            string openId = "testuser.openid.com.test";
-            string userName = "UserTest";
+            const string openId = "testuser.openid.com.test";
+            const string userName = "UserTest";
 
             var objectId = ObjectId.GenerateNewId();
-            members.Insert(new Member()
-            {
+            _members.Insert(new Member
+                                {
                 Id = objectId,
                 OpenId = openId,
                 UserName = userName

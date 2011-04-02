@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using FluentMongo.Linq;
 using LittleProblem.Data.Aggregate;
@@ -11,7 +10,7 @@ using MongoDB.Driver.Builders;
 
 namespace LittleProblem.Data.Repository
 {
-    class ProblemRepository : IProblemRepository
+    public class ProblemRepository : IProblemRepository
     {
         private readonly IConnexion _connexion;
         private readonly MongoCollection<Problem> _problemsCollection;

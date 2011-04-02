@@ -12,46 +12,48 @@ namespace LittleProblem.DataTest
     class MembershipServiceTest
     {
         private readonly IMembershipService _service;
-        private readonly MongoCollection<Member> members;
+        private readonly MongoCollection<Member> _members;
 
         public MembershipServiceTest()
         {
             IConnexion conn = new DbConnexion("Test_LittleProblem");
             _service = new MembershipService(conn);
-            members = conn.Collection<Member>("members");
+            _members = conn.Collection<Member>("members");
         }
 
         [SetUp]
         public void Before()
         {
-            members.RemoveAll();
+            _members.RemoveAll();
         }
 
         [Test]
         public void UserIsCreatedOnItsFirstLogin()
         {
-            var openId = "newopenid";
+            const string openId = "newopenid";
             var member = _service.LogIn(openId);
 
             Assert.That(member, Is.Not.Null);
             Assert.That(member.OpenId, Is.EqualTo(openId));
 
-            var memberDb = members.AsQueryable().FirstOrDefault(m => m.OpenId == openId);
+            var memberDb = _members.AsQueryable().FirstOrDefault(m => m.OpenId == openId);
             Assert.That(memberDb,Is.Not.Null);
         }
 
         [Test]
         public void EditProfileShouldBePersisted()
         {
-            var openId = "editedOpenId";
+            const string openId = "editedOpenId";
+            const string userName = "mimine";
+            const string email = "bonjourmimine@gmail.com";
+
             var member = _service.LogIn(openId);
 
-            var userName = "mimine";
-            member.UserName = userName;
-            var email = "bonjourmimine@gmail.com";
+            member.UserName = userName; // Modifying member.
             member.Email = email;
+
             _service.EditMemberProfile(member);
-            var memberDb = members.AsQueryable().FirstOrDefault(m => m.OpenId == openId);
+            var memberDb = _members.AsQueryable().FirstOrDefault(m => m.OpenId == openId);
             Assert.That(memberDb, Is.Not.Null);
             Assert.That(memberDb.UserName, Is.EqualTo(userName));
             Assert.That(memberDb.Email, Is.EqualTo(email));

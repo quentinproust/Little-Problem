@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Linq;
 using FluentMongo.Linq;
+using LittleProblem.Data.MapReduce;
 using LittleProblem.Data.Model;
 using LittleProblem.Data.Server;
 using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 using NLog;
 
 namespace LittleProblem.Data.Services
 {
     public class MembershipService : IMembershipService
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly IConnexion _connexion;
         private readonly MongoCollection<Member> _membersCollection;
@@ -36,7 +38,7 @@ namespace LittleProblem.Data.Services
         public Member CreateOnFirstLogIn(string openId, string email)
         {
             int nb = _membersCollection.Count() + 1;
-            Member member = new Member
+            var member = new Member
                                 {
                                     OpenId = openId,
                                     UserName = "user" + nb,
@@ -45,7 +47,7 @@ namespace LittleProblem.Data.Services
                                 };
             _membersCollection.Save(member);
 
-            logger.Info("A new person has logged in LittleProblem. "+
+            Logger.Info("A new person has logged in LittleProblem. "+
                 " Its account has been created with temp username : " + member.UserName + 
                 " and it will be linked to the openId : " + member.OpenId);
 
@@ -61,7 +63,24 @@ namespace LittleProblem.Data.Services
             dbMember.Email = member.Email;
             _membersCollection.Save(dbMember);
 
-            logger.Info("The user "+ member.UserName + " has updated its profile.");
+            Logger.Info("The user "+ member.UserName + " has updated its profile.");
+        }
+
+        public void UpdateUserNote()
+        {
+            var result = _membersCollection.MapReduce(
+                MapReduceCodeLoader.Load("ResponsesUserNote.map"), 
+                MapReduceCodeLoader.Load("Notes.reduce"),
+                MapReduceOptions.SetOutput(MapReduceOutput.Replace("notes")));
+
+            if (result.Ok)
+            {
+                Logger.Info("Map reduce for user note completed");
+            }
+            else
+            {
+                Logger.Error("Map reduce for user note failed");
+            }
         }
     }
 }
