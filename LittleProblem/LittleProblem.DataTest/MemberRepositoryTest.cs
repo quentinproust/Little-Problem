@@ -45,6 +45,15 @@ namespace LittleProblem.DataTest
         }
 
         [Test]
+        public void GetNullWhenOpenIdDoesNotExist()
+        {
+            const string openId = "testuser.openid.com";
+            Member result = _memberRepository.Get(openId);
+
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
         public void GetAMemberFromItsMongoId()
         {
             const string openId = "testuser.openid.com.test";
@@ -63,6 +72,15 @@ namespace LittleProblem.DataTest
             Assert.That(result.Id, Is.EqualTo(objectId));
             Assert.That(result.OpenId, Is.EqualTo(openId));
             Assert.That(result.UserName, Is.EqualTo(userName));
+        }
+
+        [Test]
+        public void GetNullIfMongoIdDoesNotExist()
+        {
+            var objectId = ObjectId.GenerateNewId();
+            Member result = _memberRepository.Get(objectId);
+
+            Assert.That(result, Is.Null);
         }
     }
 }
