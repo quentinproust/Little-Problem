@@ -21,13 +21,6 @@ namespace LittleProblem.Data.Services
         Member LogIn(string openId, string email);
 
         /// <summary>
-        /// Will create the member profile when he log for the first time.
-        /// </summary>
-        /// <param name="openId">OpenId Identifier</param>
-        /// <param name="email">Email</param>
-        Member CreateOnFirstLogIn(string openId, string email);
-
-        /// <summary>
         /// Edit member profile.
         /// </summary>
         /// <param name="member">Member with edited fields</param>

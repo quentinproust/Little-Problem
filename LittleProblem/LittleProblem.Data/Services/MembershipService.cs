@@ -32,7 +32,15 @@ namespace LittleProblem.Data.Services
         {
             var member = _membersCollection.AsQueryable()
                 .FirstOrDefault(m => m.OpenId == openId);
-            return member ?? CreateOnFirstLogIn(openId, email);
+            if (member == null)
+            {
+                member = CreateOnFirstLogIn(openId, email);
+            } else
+            {
+                member.LastConnection = DateTime.Now;
+                _membersCollection.Save(member);
+            }
+            return member;
         }
         
         public Member CreateOnFirstLogIn(string openId, string email)

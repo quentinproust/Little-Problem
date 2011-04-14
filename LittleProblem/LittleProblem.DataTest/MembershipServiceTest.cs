@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading;
 using FluentMongo.Linq;
 using LittleProblem.Data.Model;
 using LittleProblem.Data.Server;
@@ -41,6 +43,33 @@ namespace LittleProblem.DataTest
         }
 
         [Test]
+        public void UserLogInWithExistingProfile()
+        {
+            const string openId = "newopenid";
+            var member = _service.LogIn(openId); // New member is created
+            var existingMember = _service.LogIn(openId); // New member is created
+
+            Assert.That(member, Is.Not.Null);
+            Assert.That(existingMember, Is.Not.Null);
+            Assert.That(member.OpenId, Is.EqualTo(openId));
+            Assert.That(existingMember.OpenId, Is.EqualTo(openId));
+
+            Assert.That(existingMember, Is.EqualTo(member));
+        }
+
+        [Test]
+        public void UpdateLastConnectionDateWhenUserLogIn()
+        {
+            const string openId = "newopenid";
+            var member = _service.LogIn(openId); // New member is created
+            member.LastConnection = DateTime.Now.Subtract(TimeSpan.FromDays(10));
+            _members.Save(member);
+
+            var existingMember = _service.LogIn(openId);
+            Assert.That(existingMember.LastConnection, Is.Not.EqualTo(member.LastConnection));
+        }
+
+        [Test]
         public void EditProfileShouldBePersisted()
         {
             const string openId = "editedOpenId";
@@ -57,7 +86,13 @@ namespace LittleProblem.DataTest
             Assert.That(memberDb, Is.Not.Null);
             Assert.That(memberDb.UserName, Is.EqualTo(userName));
             Assert.That(memberDb.Email, Is.EqualTo(email));
+        }
 
+        [Test]
+        public void UpdateUserNote()
+        {
+            _service.UpdateUserNote(); // Don't know how to test this
+            // Generaly means I have a design problem.
         }
     }
 }
