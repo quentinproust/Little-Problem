@@ -61,6 +61,7 @@
     <Compile Include="MembershipServiceTest.cs" />
     <Compile Include="ObjectIdDataSource.cs" />
     <Compile Include="ProblemRepositoryTest.cs" />
+    <Compile Include="ProblemServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

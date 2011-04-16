@@ -14,6 +14,7 @@ namespace LittleProblem.Data.Model
         public DateTime? ClosureDate { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
+        public Response CurrentSolution { get; set; }
         public List<Response> Responses { get; set; }
 
         public Problem()
