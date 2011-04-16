@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentMongo.Linq;
+using LittleProblem.Common.CustomException;
 using LittleProblem.Data.Aggregate;
 using LittleProblem.Data.Model;
 using LittleProblem.Data.Server;
@@ -21,17 +23,17 @@ namespace LittleProblem.Data.Repository
             _problemsCollection = _connexion.Collection<Problem>(CollectionNames.Problem);
         }
 
-        public List<Problem> All()
+        public int PageSize
         {
-            return All(0);
+            get { return 10; }
         }
 
         public List<Problem> All(int start)
         {
             return _problemsCollection.AsQueryable()
                 .OrderByDescending(x => x.OpenedDate)
-                .Skip(start * 10)
-                .Take(10)
+                .Skip(start * PageSize)
+                .Take(PageSize)
                 .ToList();
         }
 
@@ -45,6 +47,11 @@ namespace LittleProblem.Data.Repository
         {
             Problem problem = _problemsCollection.AsQueryable()
                 .FirstOrDefault(x => x.Id == new ObjectId(id));
+
+            if (problem == null)
+            {
+                throw new EntityNotFoundException("Could not find the requested problem. Problem Id was :" + id);
+            }
 
             List<ObjectId> userIds = problem.Responses.Select(x => x.UserId).ToList();
             userIds.Add(problem.UserId);

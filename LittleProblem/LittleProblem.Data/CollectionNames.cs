@@ -7,6 +7,7 @@ namespace LittleProblem.Data
 {
     public static class CollectionNames
     {
+        // TODO : create a map btw string & type
         public static string Member = "members";
         public static string Problem = "problems";
     }

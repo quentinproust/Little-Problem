@@ -42,6 +42,7 @@
     <Compile Include="BootStrap\GlobalBootStrapper.cs" />
     <Compile Include="BootStrap\IBootStrap.cs" />
     <Compile Include="Colllections\ForEachExtension.cs" />
+    <Compile Include="CustomException\EntityNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

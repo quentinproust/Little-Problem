@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoPoco">
+      <HintPath>..\packages\AutoPoco.1.0.0.0\lib\AutoPoco.dll</HintPath>
+    </Reference>
     <Reference Include="FluentMongo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentMongo.1.0.0.0\lib\FluentMongo.dll</HintPath>
     </Reference>
@@ -53,11 +56,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbConnexionTest.cs" />
+    <Compile Include="MapReduceCodeLoaderTest.cs" />
     <Compile Include="MemberRepositoryTest.cs" />
     <Compile Include="MembershipServiceTest.cs" />
+    <Compile Include="ObjectIdDataSource.cs" />
+    <Compile Include="ProblemRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LittleProblem.Common\LittleProblem.Common.csproj">
+      <Project>{27FAF8DA-D3AC-49A3-BA3A-36224AA71321}</Project>
+      <Name>LittleProblem.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LittleProblem.Data\LittleProblem.Data.csproj">
       <Project>{93C7165B-881C-4A2A-9FC9-FAF82B58A9C5}</Project>
       <Name>LittleProblem.Data</Name>

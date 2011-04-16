@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using FluentMongo.Linq;
+using LittleProblem.Data;
 using LittleProblem.Data.Model;
 using LittleProblem.Data.Server;
 using LittleProblem.Data.Services;
@@ -20,7 +21,7 @@ namespace LittleProblem.DataTest
         {
             IConnexion conn = new DbConnexion("Test_LittleProblem");
             _service = new MembershipService(conn);
-            _members = conn.Collection<Member>("members");
+            _members = conn.Collection<Member>(CollectionNames.Member);
         }
 
         [SetUp]

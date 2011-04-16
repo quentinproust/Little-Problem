@@ -1,4 +1,5 @@
-﻿using LittleProblem.Data.Model;
+﻿using LittleProblem.Data;
+using LittleProblem.Data.Model;
 using LittleProblem.Data.Repository;
 using LittleProblem.Data.Server;
 using MongoDB.Bson;
@@ -17,7 +18,7 @@ namespace LittleProblem.DataTest
         {
             IConnexion conn = new DbConnexion("Test_LittleProblem");
             _memberRepository = new MemberRepository(conn);
-            _members = conn.Collection<Member>("members");
+            _members = conn.Collection<Member>(CollectionNames.Member);
         }
 
         [SetUp]

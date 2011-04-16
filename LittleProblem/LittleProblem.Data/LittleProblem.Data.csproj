@@ -85,6 +85,12 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LittleProblem.Common\LittleProblem.Common.csproj">
+      <Project>{27FAF8DA-D3AC-49A3-BA3A-36224AA71321}</Project>
+      <Name>LittleProblem.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
