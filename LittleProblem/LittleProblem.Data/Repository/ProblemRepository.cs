@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using FluentMongo.Linq;
 using LittleProblem.Common.CustomException;
@@ -28,7 +27,7 @@ namespace LittleProblem.Data.Repository
             get { return 10; }
         }
 
-        public List<Problem> All(int start)
+        public IEnumerable<Problem> All(int start)
         {
             return _problemsCollection.AsQueryable()
                 .OrderByDescending(x => x.OpenedDate)

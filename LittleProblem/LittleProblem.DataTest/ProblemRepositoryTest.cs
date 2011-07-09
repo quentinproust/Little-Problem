@@ -1,12 +1,13 @@
-﻿using AutoPoco;
+﻿using System.Linq;
+using AutoPoco;
 using AutoPoco.DataSources;
 using AutoPoco.Engine;
-using LittleProblem.Common.Colllections;
 using LittleProblem.Common.CustomException;
 using LittleProblem.Data;
 using LittleProblem.Data.Model;
 using LittleProblem.Data.Repository;
 using LittleProblem.Data.Server;
+using LittleProblem.Test.Common;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using NUnit.Framework;
@@ -17,19 +18,16 @@ namespace LittleProblem.DataTest
     public class ProblemRepositoryTest
     {
         private readonly IGenerationSession _session;
-        private ProblemRepository _problemRepository;
-        private MongoCollection<Problem> _problemCollection;
-        private DbConnexion _conn;
+        private readonly ProblemRepository _problemRepository;
+        private readonly MongoCollection<Problem> _problemCollection;
+        private readonly DbConnexion _conn;
 
         public ProblemRepositoryTest()
         {
             // Perform factory set up (once for entire test run)
             IGenerationSessionFactory factory = AutoPocoContainer.Configure(x =>
             {
-                x.Conventions(c =>
-                {
-                    c.UseDefaultConventions();
-                });
+                x.Conventions(c => c.UseDefaultConventions());
                 x.AddFromAssemblyContainingType<Member>();
 
                 x.Include<Member>()
@@ -101,7 +99,7 @@ namespace LittleProblem.DataTest
         {
             var problems = _problemRepository.All(0);
             Assert.That(problems, Is.Not.Null);
-            Assert.That(problems.Count, Is.EqualTo(0));
+            Assert.That(problems.ToList().Count, Is.EqualTo(0));
         }
 
         [Test]
@@ -119,7 +117,7 @@ namespace LittleProblem.DataTest
 
             var problems = _problemRepository.All(0);
             Assert.That(problems, Is.Not.Null);
-            Assert.That(problems.Count, Is.EqualTo(3));
+            Assert.That(problems.ToList().Count, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -144,7 +142,7 @@ namespace LittleProblem.DataTest
 
             var problems = _problemRepository.All(0);
             Assert.That(problems, Is.Not.Null);
-            Assert.That(problems.Count, Is.EqualTo(pageSize));
+            Assert.That(problems.ToList().Count, Is.EqualTo(pageSize));
         }
 
         [Test]
@@ -165,7 +163,7 @@ namespace LittleProblem.DataTest
 
             var problems = _problemRepository.All(1); // Get second page
             Assert.That(problems, Is.Not.Null);
-            Assert.That(problems.Count, Is.EqualTo(3));
+            Assert.That(problems.ToList().Count, Is.EqualTo(3));
         }
 
         [Test]

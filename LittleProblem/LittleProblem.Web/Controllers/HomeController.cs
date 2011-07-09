@@ -24,11 +24,15 @@ namespace LittleProblem.Web.Controllers
 
         public ActionResult Index(int id = 0)
         {
+            if (id < 0)
+            {
+                throw new HttpException(404, "Could not find the requested page. Pagination number can't be negative !");
+            }
+
             ViewData["Message"] = "Welcome to LittleProblems !";
 
-            List<Problem> lastProblems = _problemRepository.All(id);
-            int nbProblem = _problemRepository.Count();
-            ViewData["NbProblem"] = nbProblem;
+            var lastProblems = _problemRepository.All(id);
+            ViewData["NbProblem"] = _problemRepository.Count();
 
             return View(lastProblems);
         }

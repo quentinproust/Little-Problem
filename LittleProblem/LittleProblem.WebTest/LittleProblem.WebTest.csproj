@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BDE715B7-09C0-4DC1-98A9-BC4441233171}</ProjectGuid>
+    <ProjectGuid>{32AE2290-309C-47B3-992A-FE5335BA65CD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LittleProblem.DataTest</RootNamespace>
-    <AssemblyName>LittleProblem.DataTest</AssemblyName>
+    <RootNamespace>LittleProblem.WebTest</RootNamespace>
+    <AssemblyName>LittleProblem.WebTest</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,40 +34,30 @@
     <Reference Include="AutoPoco">
       <HintPath>..\packages\AutoPoco.1.0.0.0\lib\AutoPoco.dll</HintPath>
     </Reference>
-    <Reference Include="FluentMongo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentMongo.1.0.0.0\lib\FluentMongo.dll</HintPath>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\lib\FakeItEasy.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Bson, Version=0.11.0.4042, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\mongocsharpdriver.0.11.0.4042\lib\net35\MongoDB.Bson.dll</HintPath>
-    </Reference>
-    <Reference Include="MongoDB.Driver, Version=0.11.0.4042, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\mongocsharpdriver.0.11.0.4042\lib\net35\MongoDB.Driver.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.5.9.10348, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="MongoDB.Bson, Version=0.11.0.4042, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="nunit.framework">
       <HintPath>..\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbConnexionTest.cs" />
-    <Compile Include="MapReduceCodeLoaderTest.cs" />
-    <Compile Include="MemberRepositoryTest.cs" />
-    <Compile Include="MembershipServiceTest.cs" />
-    <Compile Include="ProblemRepositoryTest.cs" />
-    <Compile Include="ProblemServiceTest.cs" />
+    <Compile Include="HomeControllerTest.cs" />
+    <Compile Include="ProblemControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LittleProblem.Common\LittleProblem.Common.csproj">
-      <Project>{27FAF8DA-D3AC-49A3-BA3A-36224AA71321}</Project>
-      <Name>LittleProblem.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LittleProblem.Data\LittleProblem.Data.csproj">
       <Project>{93C7165B-881C-4A2A-9FC9-FAF82B58A9C5}</Project>
       <Name>LittleProblem.Data</Name>
@@ -76,9 +66,10 @@
       <Project>{CD5637D9-9835-4178-BF1D-14D05B4D172C}</Project>
       <Name>LittleProblem.Test.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\LittleProblem.Web\LittleProblem.Web.csproj">
+      <Project>{BB3879CF-229B-4BDA-A444-88D6EBF73333}</Project>
+      <Name>LittleProblem.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

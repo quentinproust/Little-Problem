@@ -1,8 +1,7 @@
-﻿using System;
-using AutoPoco.Engine;
+﻿using AutoPoco.Engine;
 using MongoDB.Bson;
 
-namespace LittleProblem.DataTest
+namespace LittleProblem.Test.Common
 {
     /// <summary>
     /// Get autopoco to create a new object id for test objects.

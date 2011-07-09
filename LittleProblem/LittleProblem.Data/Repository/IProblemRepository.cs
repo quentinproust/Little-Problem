@@ -18,7 +18,7 @@ namespace LittleProblem.Data.Repository
         /// </summary>
         /// <param name="start">Page number.</param>
         /// <returns>Get all problems for the requested page.</returns>
-        List<Problem> All(int start);
+        IEnumerable<Problem> All(int start);
 
         /// <summary>
         /// Load a problem using its Id.

@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LittleProblem.Common", "Lit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LittleProblem.CommonTest", "LittleProblem.CommonTest\LittleProblem.CommonTest.csproj", "{0D7EAD20-6B6D-4C34-BBD4-41EACC7BA3BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LittleProblem.WebTest", "LittleProblem.WebTest\LittleProblem.WebTest.csproj", "{32AE2290-309C-47B3-992A-FE5335BA65CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LittleProblem.Test.Common", "LittleProblem.Test.Common\LittleProblem.Test.Common.csproj", "{CD5637D9-9835-4178-BF1D-14D05B4D172C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{0D7EAD20-6B6D-4C34-BBD4-41EACC7BA3BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D7EAD20-6B6D-4C34-BBD4-41EACC7BA3BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D7EAD20-6B6D-4C34-BBD4-41EACC7BA3BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32AE2290-309C-47B3-992A-FE5335BA65CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32AE2290-309C-47B3-992A-FE5335BA65CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32AE2290-309C-47B3-992A-FE5335BA65CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32AE2290-309C-47B3-992A-FE5335BA65CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD5637D9-9835-4178-BF1D-14D05B4D172C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD5637D9-9835-4178-BF1D-14D05B4D172C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD5637D9-9835-4178-BF1D-14D05B4D172C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD5637D9-9835-4178-BF1D-14D05B4D172C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,5 +64,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{BDE715B7-09C0-4DC1-98A9-BC4441233171} = {D97D4F3A-30D0-4E85-B5EC-4E07F258EB47}
 		{0D7EAD20-6B6D-4C34-BBD4-41EACC7BA3BB} = {D97D4F3A-30D0-4E85-B5EC-4E07F258EB47}
+		{32AE2290-309C-47B3-992A-FE5335BA65CD} = {D97D4F3A-30D0-4E85-B5EC-4E07F258EB47}
+		{CD5637D9-9835-4178-BF1D-14D05B4D172C} = {D97D4F3A-30D0-4E85-B5EC-4E07F258EB47}
 	EndGlobalSection
 EndGlobal
