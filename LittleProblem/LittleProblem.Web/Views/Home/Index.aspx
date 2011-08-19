@@ -1,29 +1,29 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<List<LittleProblem.Data.Model.Problem>>" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<ProblemListModel>" %>
+<%@ Import Namespace="LittleProblem.Web.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Home Page
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%= Html.Encode(ViewData["Message"]) %></h2>
     <div>
         <h2>Last problems submitted by members</h2>
 
         <div id="problems">
-        <% if (Model.Count == 0) { %>
+        <% if (!Model.HasProblems) { %>
             No problems has yet to be submitted.
-        <% } else { foreach (var problem in Model) {%>
-            <div class="problem <%= problem.IsClosed() ? "closed" : "not-closed" %>">
-                <div class="answers"><%= problem.Responses.Count %></div>
-                <div class="description"><%= Html.ActionLink(problem.Title, "Details", "Problem", new { id = problem.Id.ToString() }, null)%></div>
-            </div>
+        <% } else { foreach (var problem in Model.Problems) {%>
+            <% Html.RenderPartial("Controls/ProblemListItem", problem); %>
         <% } } %>
         </div>
 
-        <div class="pagination">
-            <% for (var p = 0; p < (int)ViewData["NbProblem"] / 10 +1; p++) { %>
-                <%=Html.ActionLink(p.ToString(), "Index", new {id = p})%>
-            <%} %>
-        </div>
+        <%
+           Html.RenderPartial("PaginationControl", new PaginationModel
+                                                       {
+                                                           Controller = "Home",
+                                                           Action = "Index",
+                                                           NbElements = Model.NbProblemsTotal,
+                                                           CurrentPage = Model.CurrentPage
+                                                       });%>
     </div>
 </asp:Content>

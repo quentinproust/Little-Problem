@@ -10,6 +10,7 @@ using LittleProblem.Data.Model;
 using LittleProblem.Data.Repository;
 using LittleProblem.Test.Common;
 using LittleProblem.Web.Controllers;
+using LittleProblem.Web.Models;
 using NUnit.Framework;
 
 namespace LittleProblem.WebTest
@@ -56,11 +57,11 @@ namespace LittleProblem.WebTest
             A.CallTo(() => problemRepository.Count()).Returns(120);
 
             var result = homeController.Index() as ViewResult;
-            var problemsResult = (IEnumerable<Problem>) result.ViewData.Model;
+            var problemsResult = result.ViewData.Model as ProblemListModel;
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.ViewData["NbProblem"], Is.EqualTo(120));
-            Assert.That(problemsResult.ToList().Count, Is.EqualTo(10));
+            Assert.That(problemsResult.NbProblemsTotal, Is.EqualTo(120));
+            Assert.That(problemsResult.Problems.Count(), Is.EqualTo(10));
             A.CallTo(() => problemRepository.All(0)).MustHaveHappened();
         }
 
@@ -74,11 +75,11 @@ namespace LittleProblem.WebTest
             A.CallTo(() => problemRepository.Count()).Returns(0);
 
             var result = homeController.Index() as ViewResult;
-            var problemsResult = (IEnumerable<Problem>)result.ViewData.Model;
+            var problemsResult = result.ViewData.Model as ProblemListModel;
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.ViewData["NbProblem"], Is.EqualTo(0));
-            Assert.That(problemsResult.ToList().Count, Is.EqualTo(0));
+            Assert.That(problemsResult.NbProblemsTotal, Is.EqualTo(0));
+            Assert.That(problemsResult.Problems.Count(), Is.EqualTo(0));
             A.CallTo(() => problemRepository.All(0)).MustHaveHappened();
         }
 
@@ -94,11 +95,11 @@ namespace LittleProblem.WebTest
             A.CallTo(() => problemRepository.Count()).Returns(15);
 
             var result = homeController.Index(1) as ViewResult;
-            var problemsResult = (IEnumerable<Problem>)result.ViewData.Model;
+            var problemsResult = result.ViewData.Model as ProblemListModel;
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.ViewData["NbProblem"], Is.EqualTo(15));
-            Assert.That(problemsResult.ToList().Count, Is.EqualTo(5));
+            Assert.That(problemsResult.NbProblemsTotal, Is.EqualTo(15));
+            Assert.That(problemsResult.Problems.Count(), Is.EqualTo(5));
             A.CallTo(() => problemRepository.All(1)).MustHaveHappened();
         }
 

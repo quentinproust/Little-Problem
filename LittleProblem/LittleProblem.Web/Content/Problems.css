@@ -1,0 +1,50 @@
+﻿/* Styles for problems list
+----------------------------------------------------------*/
+.problem 
+{
+    margin-bottom: 5px;    
+}
+.problem .description 
+{
+    display: inline-block;
+    font-size: 1.5em;
+    margin-left: 30px;
+}
+.problem.closed .description
+{
+    text-decoration: line-through;   
+}
+.problem .answers 
+{
+    text-align: right;
+    display: inline-block;
+    padding : 10px;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    border: 4px solid #5C87B2;
+}
+
+#responses 
+{
+    margin-left: 50px;
+}
+.response 
+{
+    margin: 30px;
+}
+.response .user, 
+.response .note
+{
+    display: inline-block;
+}
+.response .message
+{
+}
+.response .user
+{
+    margin-left: 30px;
+}
+.response .note
+{
+}

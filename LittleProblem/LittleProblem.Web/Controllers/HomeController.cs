@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.MobileControls;
-using LittleProblem.Data;
-using LittleProblem.Data.Model;
 using LittleProblem.Data.Repository;
-using LittleProblem.Data.Services;
-using NLog;
+using LittleProblem.Web.Models;
 
 namespace LittleProblem.Web.Controllers
 {
@@ -29,12 +22,15 @@ namespace LittleProblem.Web.Controllers
                 throw new HttpException(404, "Could not find the requested page. Pagination number can't be negative !");
             }
 
-            ViewData["Message"] = "Welcome to LittleProblems !";
-
             var lastProblems = _problemRepository.All(id);
-            ViewData["NbProblem"] = _problemRepository.Count();
+            var nbProblems = _problemRepository.Count();
 
-            return View(lastProblems);
+            return View(new ProblemListModel
+                            {
+                                Problems = lastProblems,
+                                CurrentPage = id,
+                                NbProblemsTotal = nbProblems
+                            });
         }
 
         public ActionResult About()

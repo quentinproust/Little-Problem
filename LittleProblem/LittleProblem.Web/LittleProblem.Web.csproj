@@ -14,6 +14,7 @@
     <AssemblyName>LittleProblem.Web</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -90,6 +91,8 @@
     <Compile Include="Helpers\MemberHelper.cs" />
     <Compile Include="Helpers\TextHelper.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\PaginationModel.cs" />
+    <Compile Include="Models\ProblemListModel.cs" />
     <Compile Include="Models\ProblemModels.cs" />
     <Compile Include="OpenIdAuthorizeAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -195,6 +198,7 @@
     <Content Include="Views\Problem\Create.aspx" />
     <Content Include="Views\Problem\Details.aspx" />
     <Content Include="Views\Shared\LogOnUserControl.ascx" />
+    <Content Include="Views\Shared\PaginationControl.ascx" />
     <Content Include="Views\Shared\ResponseForm.ascx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
