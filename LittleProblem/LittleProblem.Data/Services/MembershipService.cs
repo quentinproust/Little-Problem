@@ -77,9 +77,9 @@ namespace LittleProblem.Data.Services
         public void UpdateUserNote()
         {
             var result = _membersCollection.MapReduce(
-                MapReduceCodeLoader.Load("ResponsesUserNote.map"), 
-                MapReduceCodeLoader.Load("Notes.reduce"),
-                MapReduceOptions.SetOutput(MapReduceOutput.Replace("notes")));
+                MapReduceCodeLoader.Load("ResponsesUserNote.map.js"), 
+                MapReduceCodeLoader.Load("Notes.reduce.js"),
+                MapReduceOptions.SetOutput(MapReduceOutput.Replace(CollectionNames.Member)));
 
             if (result.Ok)
             {

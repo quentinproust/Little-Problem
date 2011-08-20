@@ -12,6 +12,11 @@ namespace LittleProblem.Data.Model
         public DateTime FirstConnection { get; set; }
         public string Email { get; set; }
 
+        /// <summary>
+        /// This field is computed with a map reduce to retrieve every note on the member responses.
+        /// </summary>
+        public int Note { get; set; }
+
         #region equality
         
         public bool Equals(Member other)

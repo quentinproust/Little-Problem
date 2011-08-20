@@ -9,7 +9,7 @@ namespace LittleProblem.DataTest
         [Test]
         public void LoadCodeFromFile()
         {
-            const string file = "Notes.reduce";
+            const string file = "Notes.reduce.js";
             var code = MapReduceCodeLoader.Load(file);
             Assert.That(code, Is.Not.Null);
         }
@@ -18,7 +18,7 @@ namespace LittleProblem.DataTest
         public void ThrowExceptionIfCodeFileNotFound()
         {
             const string file = "NotFoundCodeFile";
-            Assert.That(delegate { MapReduceCodeLoader.Load(file); }, Throws.Exception);
+            Assert.That(() => MapReduceCodeLoader.Load(file), Throws.Exception);
         }
     }
 }

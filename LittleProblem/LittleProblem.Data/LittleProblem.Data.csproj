@@ -77,12 +77,12 @@
     <Compile Include="Services\ProblemService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MapReduce\Notes.reduce">
+    <Content Include="MapReduce\Notes.reduce.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MapReduce\ResponsesUserNote.map">
+    </Content>
+    <Content Include="MapReduce\ResponsesUserNote.map.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

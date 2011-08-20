@@ -190,11 +190,13 @@
     <Content Include="Content\Images\PoweredMongo.png" />
     <Content Include="Content\openid-shadow.css" />
     <Content Include="Content\openid.css" />
+    <Content Include="Content\Problems.css" />
     <Content Include="Scripts\openid-en.js" />
     <Content Include="Scripts\openid-jquery.js" />
     <Content Include="Global.asax" />
     <Content Include="Views\Account\Login.aspx" />
     <Content Include="Views\Account\Profile.aspx" />
+    <Content Include="Views\Home\Controls\ProblemListItem.ascx" />
     <Content Include="Views\Problem\Create.aspx" />
     <Content Include="Views\Problem\Details.aspx" />
     <Content Include="Views\Shared\LogOnUserControl.ascx" />

@@ -4,12 +4,12 @@
 <%@ Import Namespace="LittleProblem.Web.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Problem : <%= Html.Encode(Model.Title) %>
+	<%= Html.Encode(Model.Title) %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-	<h2>Problem <em><%= Html.Encode(Model.Title) %></em></h2>
+	<h2><em><%= Html.Encode(Model.Title) %></em></h2>
 	<div>
 		Submitted on <%= Html.Encode(String.Format("{0:g}", Model.OpenedDate)) %> 
 		by <em><%= Html.Encode(Model.Submitter.UserName) %></em>

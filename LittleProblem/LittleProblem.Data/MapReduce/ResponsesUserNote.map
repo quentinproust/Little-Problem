@@ -1,5 +1,0 @@
-﻿mapUserNote = function() {
-	this.Responses.forEach(function(res) {
-			emit(res.UserId, res.Note);
-	});
-}

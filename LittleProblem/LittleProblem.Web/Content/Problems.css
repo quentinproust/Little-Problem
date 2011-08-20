@@ -7,8 +7,9 @@
 .problem .description 
 {
     display: inline-block;
-    font-size: 1.5em;
     margin-left: 30px;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 .problem.closed .description
 {
@@ -47,4 +48,29 @@
 }
 .response .note
 {
+}
+
+/* Styles for pagination
+----------------------------------------------------------*/
+.pagination 
+{
+}
+.pagination a 
+{
+    padding: 2px;
+    background-color: rgb(232, 238, 244);   
+}
+
+.pagination a 
+{
+    padding: 2px;
+    color : #034af3;
+    background-color: rgb(232, 238, 244);   
+}
+
+.pagination a.current 
+{
+    background-color : #034af3;
+    color: rgb(232, 238, 244);
+    text-decoration:none;
 }
