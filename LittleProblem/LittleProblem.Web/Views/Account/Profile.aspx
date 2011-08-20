@@ -23,7 +23,7 @@
 		<%= Html.ValidationSummary(true)%>
 		
 		<fieldset>
-			<legend>Fields</legend>
+			<legend>Informations</legend>
 			
 			<div class="editor-label">
 				<%= Html.LabelFor(model => model.UserName)%>
@@ -50,6 +50,19 @@
 				<input type="submit" value="Save" />
 			</p>
 		</fieldset>
+
+        <fieldset>
+            <legend>LittleProblem Note</legend>
+
+            <p>
+                This is the note user gave you when they vote on your responses.
+            </p>
+            <div class="note">
+                <div class="gold-points"><%= Model.Note.Gold %></div>
+                <div class="silver-points"><%= Model.Note.Silver %></div>
+                <div class="bronze-points"><%= Model.Note.Bronze %></div>
+            </div>
+        </fieldset>
 
 	<% }
 	   } %>

@@ -93,7 +93,8 @@ namespace LittleProblem.Web.Controllers
             return View(new ProfileModel
                             {
                                 Email = member.Email ?? "", 
-                                UserName = member.UserName
+                                UserName = member.UserName,
+                                Note = new NoteModel(member.Note)
                             });
         }
 
