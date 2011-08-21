@@ -1,4 +1,5 @@
 ﻿using System;
+using LittleProblem.Common;
 using LittleProblem.Quartz.Jobs;
 using Quartz;
 
@@ -24,8 +25,8 @@ namespace LittleProblem.Quartz.Task
         {
             get
             {
-                var trigger = TriggerUtils.MakeHourlyTrigger();
-                trigger.StartTimeUtc = TriggerUtils.GetEvenHourDate(DateTime.UtcNow);
+                var trigger = TriggerUtils.MakeMinutelyTrigger();
+                trigger.StartTimeUtc = 5.Minutes().AfterNow();
                 trigger.Name = "myTrigger";
                 return trigger;
             }

@@ -50,6 +50,22 @@
 {
 }
 
+.response .note .points 
+{
+}
+.response .note .points.gold
+{
+    color: Yellow;
+}
+.response .note .points.silver
+{
+    color: Silver;
+}
+.response .note .points.bronze
+{
+    color: Orange;
+}
+
 /* Styles for pagination
 ----------------------------------------------------------*/
 .pagination 

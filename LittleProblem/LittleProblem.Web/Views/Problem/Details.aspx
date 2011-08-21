@@ -28,10 +28,11 @@
 			</div>
 			<div class="user">
 				by <em><%= response.Submitter.UserName %></em>
+				<% Html.RenderPartial("MemberNoteControl", new NoteModel(response.Submitter.Note)); %>
 			</div>
 			<div class="note">
-				<%= Html.ActionLink("Up", "Up", "Problem", new { id = Model.Id, responseId = response.Id}, null)%> | 
-				<%= Html.ActionLink("Down", "Down", "Problem", new { id = Model.Id, responseId = response.Id}, null)%>
+				<%= Html.ActionLink("Up", "Up", "Problem", new { id = Model.Id, responseId = response.Id }, null) %>
+				<%= Html.ActionLink("Down", "Down", "Problem", new { id = Model.Id, responseId = response.Id}, null) %>
 			</div>
 			<% if(Session.IsCurrentMember(Model.Submitter)) { %>
 				<div class="accept"><%= Html.ActionLink("Accept as a solution", "Close", "Problem",new { id = Model.Id }, null) %></div>
@@ -39,7 +40,6 @@
 		</div>
 	<%    } %>
 	</div>
-
 	<% if(!Model.IsClosed) Html.RenderPartial("ResponseForm", new ResponseModel { ProblemId = Model.Id }); %>
 </asp:Content>
 

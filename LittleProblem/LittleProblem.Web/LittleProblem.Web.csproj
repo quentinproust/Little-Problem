@@ -101,6 +101,8 @@
     <Compile Include="WebBootStrapper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\arrow_down.gif" />
+    <Content Include="Content\Images\arrow_up.gif" />
     <Content Include="Content\Images\openid-images\images.large\aol.gif" />
     <Content Include="Content\Images\openid-images\images.large\facebook.gif" />
     <Content Include="Content\Images\openid-images\images.large\google.gif" />
@@ -200,6 +202,7 @@
     <Content Include="Views\Problem\Create.aspx" />
     <Content Include="Views\Problem\Details.aspx" />
     <Content Include="Views\Shared\LogOnUserControl.ascx" />
+    <Content Include="Views\Shared\MemberNoteControl.ascx" />
     <Content Include="Views\Shared\PaginationControl.ascx" />
     <Content Include="Views\Shared\ResponseForm.ascx" />
     <Content Include="Web.config" />

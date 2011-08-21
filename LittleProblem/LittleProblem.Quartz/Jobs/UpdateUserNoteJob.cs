@@ -2,6 +2,7 @@
 using LittleProblem.Data.Services;
 using NLog;
 using Quartz;
+using StructureMap;
 
 namespace LittleProblem.Quartz.Jobs
 {
@@ -11,16 +12,16 @@ namespace LittleProblem.Quartz.Jobs
     public class UpdateUserNoteJob : IJob
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        private readonly IMembershipService _membershipService;
+        private static IMembershipService _service;
 
-        public UpdateUserNoteJob(IMembershipService membershipService)
-        {
-            _membershipService = membershipService;
+        public IMembershipService Service { 
+            get { return _service ?? (_service = ObjectFactory.GetInstance<IMembershipService>()); }
+            set { _service = value; }
         }
 
         public void Execute(JobExecutionContext context)
         {
-            _membershipService.UpdateUserNote();
+            Service.UpdateUserNote();
             Logger.Info("User notes have been updated successfully");
         }
     }

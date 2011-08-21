@@ -17,7 +17,7 @@ namespace LittleProblem.Quartz
         public void CreateTask(ITask task)
         {
             Logger.Info("A new task has been scheduled : " + task.GetType());
-            _scheduler.ScheduleJob(task.Detail, task.Trigger);
+            var date = _scheduler.ScheduleJob(task.Detail, task.Trigger);
         }
     }
 }
