@@ -27,7 +27,7 @@ namespace LittleProblem.WebTest
                              };
 
             var memberRepository = A.Fake<IMemberRepository>();
-            var accountController = new AccountController(null, memberRepository);
+            var accountController = new AccountController(null, memberRepository, null);
             accountController.InjectFakeContext();
             accountController.ConnectUser();
 

@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using NLog;
 
-namespace LittleProblem.Web
+namespace LittleProblem.Web.Extension.OpenId
 {
     public class OpenIdAuthorizeAttribute : AuthorizeAttribute
     {

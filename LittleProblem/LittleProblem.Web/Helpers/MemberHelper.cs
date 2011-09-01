@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.SessionState;
 using LittleProblem.Data.Model;
+using LittleProblem.Web.Extension.Session;
 
 namespace LittleProblem.Web.Helpers
 {
@@ -8,20 +9,16 @@ namespace LittleProblem.Web.Helpers
     {
         public static bool IsCurrentMember(this HttpSessionState sessionState, Member member)
         {
-            if (sessionState != null)
-            {
-                var openId = sessionState["openid"];
-                return openId != null && openId.Equals(member.OpenId);
-            }
-            return false;
+            return IsCurrentMember(new HttpSessionStateWrapper(sessionState), member);
         }
 
         public static bool IsCurrentMember(this HttpSessionStateBase sessionState, Member member)
         {
             if (sessionState != null)
             {
-                var openId = sessionState["openid"];
-                return openId != null && openId.Equals(member.OpenId);
+                var memberInformations = new MemberInformations(sessionState);
+                return memberInformations.OpenId != null 
+                    && memberInformations.OpenId.Equals(member.OpenId);
             }
             return false;
         }

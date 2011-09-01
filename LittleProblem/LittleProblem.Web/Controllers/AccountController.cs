@@ -1,41 +1,41 @@
 ﻿using System.Web.Mvc;
-using System.Web.Security;
-using DotNetOpenAuth.Messaging;
-using DotNetOpenAuth.OpenId;
-using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
 using DotNetOpenAuth.OpenId.RelyingParty;
 using LittleProblem.Data.Model;
 using LittleProblem.Data.Repository;
 using LittleProblem.Data.Services;
+using LittleProblem.Web.Extension;
+using LittleProblem.Web.Extension.OpenId;
 using LittleProblem.Web.Models;
 
 namespace LittleProblem.Web.Controllers
 {
     [HandleError]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly IMembershipService _membershipService;
         private readonly IMemberRepository _memberRepository;
+        private readonly IAccountRelyingParty _relyingParty;
 
         public AccountController(
             IMembershipService membershipService,
-            IMemberRepository memberRepository)
+            IMemberRepository memberRepository,
+            IAccountRelyingParty relyingParty)
         {
             _membershipService = membershipService;
             _memberRepository = memberRepository;
+            _relyingParty = relyingParty;
         }
 
         public ActionResult LogIn()
         {
-            var openid = new OpenIdRelyingParty();
-            IAuthenticationResponse response = openid.GetResponse();
+            var response = _relyingParty.GetResponse();
 
             if (response != null)
             {
                 switch (response.Status)
                 {
                     case AuthenticationStatus.Authenticated:
-                        SuccessfulConnection(response);
+                        _relyingParty.LogInMember(response);
                         return RedirectToAction("Index", "Home");
 
                     case AuthenticationStatus.Canceled:
@@ -55,27 +55,19 @@ namespace LittleProblem.Web.Controllers
         [HttpPost]
         public ActionResult LogIn(LogInModel model)
         {
-            if (!Identifier.IsValid(model.OpenId))
+            if (!_relyingParty.IsValidIdentifier(model.OpenId))
             {
                 ModelState.AddModelError("loginIdentifier",
                             "The specified login identifier is invalid");
                 return View();
             }
 
-            var openid = new OpenIdRelyingParty();
-            IAuthenticationRequest request = openid.CreateRequest(
-                Identifier.Parse(model.OpenId));
-
-            // Require email. We can latter use it for Gravatar 
-            // or for retriving forgotten open id.
-            request.AddExtension(new ClaimsRequest { Email = DemandLevel.Require });
-            return request.RedirectingResponse.AsActionResult();
+            return _relyingParty.CreateRequest(model.OpenId);
         }
 
         public ActionResult LogOut()
         {
-            Session.Clear();
-            FormsAuthentication.SignOut();
+            _relyingParty.LogOut();
             return RedirectToAction("Index", "Home");
         }
 
@@ -83,7 +75,7 @@ namespace LittleProblem.Web.Controllers
         [HttpGet]
         public ActionResult Profile()
         {
-            var member = _memberRepository.Get((string) Session["openId"]);
+            var member = _memberRepository.Get(MemberInformations.OpenId);
             if (member == null)
             {
                 ViewData["Error"] = "This user does not exist.";
@@ -105,32 +97,12 @@ namespace LittleProblem.Web.Controllers
             var member = new Member{
                 Email = model.Email,
                 UserName = model.UserName,
-                OpenId = (string) Session["openId"]};
+                OpenId = MemberInformations.OpenId};
             _membershipService.EditMemberProfile(member);
-            SaveSessionInfo(member.UserName, member.OpenId);
+
+            MemberInformations.UserName = member.UserName;
 
             return View(model);
-        }
-
-        private void SuccessfulConnection(IAuthenticationResponse response)
-        {
-            var fetch = response.GetExtension(typeof(ClaimsResponse)) as ClaimsResponse;
-            string email = null;
-            if (fetch != null)
-            {
-                email = fetch.Email;
-            }
-            Member connectedMember = email == null 
-                                         ? _membershipService.LogIn(response.ClaimedIdentifier.ToString()) 
-                                         : _membershipService.LogIn(response.ClaimedIdentifier.ToString(), email);
-
-            SaveSessionInfo(connectedMember.UserName, response.ClaimedIdentifier.ToString());
-        }
-
-        private void SaveSessionInfo(string userName, string openId)
-        {
-            Session.Add("username", userName);
-            Session.Add("openid", openId);
         }
     }
 }

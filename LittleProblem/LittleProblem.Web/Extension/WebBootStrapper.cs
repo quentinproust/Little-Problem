@@ -1,6 +1,6 @@
 ﻿using LittleProblem.Common.BootStrap;
 
-namespace LittleProblem.Web
+namespace LittleProblem.Web.Extension
 {
     public class WebBootStrapper : GlobalBootStrapper
     {

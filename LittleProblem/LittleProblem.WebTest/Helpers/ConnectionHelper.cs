@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+﻿using LittleProblem.Web.Extension;
 
 namespace LittleProblem.WebTest.Helpers
 {
@@ -18,9 +14,9 @@ namespace LittleProblem.WebTest.Helpers
         /// </summary>
         /// <param name="controller">Controller with session</param>
         /// <remarks>Just add informations about connected user in session</remarks>
-        public static void ConnectUser(this Controller controller)
+        public static void ConnectUser(this BaseController controller)
         {
-            controller.Session["openId"] = OpenId;
+            controller.MemberInformations.OpenId = OpenId;
         }
 
         /// <summary>
@@ -29,9 +25,9 @@ namespace LittleProblem.WebTest.Helpers
         /// <param name="controller">Controller with session</param>
         /// <param name="openId">Open Id</param>
         /// <remarks>Just add informations about connected user in session</remarks>
-        public static void ConnectUser(this Controller controller, string openId)
+        public static void ConnectUser(this BaseController controller, string openId)
         {
-            controller.Session["openId"] = openId;
+            controller.MemberInformations.OpenId = openId;
         }
     }
 }

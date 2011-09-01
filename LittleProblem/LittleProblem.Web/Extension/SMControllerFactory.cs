@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using StructureMap;
 
-namespace LittleProblem.Web
+namespace LittleProblem.Web.Extension
 {
     public class SMControllerFactory : DefaultControllerFactory
     {

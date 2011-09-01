@@ -2,12 +2,14 @@
 using System.Web.Mvc;
 using LittleProblem.Data.Repository;
 using LittleProblem.Data.Services;
+using LittleProblem.Web.Extension;
+using LittleProblem.Web.Extension.OpenId;
 using LittleProblem.Web.Helpers;
 using LittleProblem.Web.Models;
 
 namespace LittleProblem.Web.Controllers
 {
-    public class ProblemController : Controller
+    public class ProblemController : BaseController
     {
         private readonly IMemberRepository _memberRepository;
         private readonly IProblemService _problemService;
@@ -21,6 +23,7 @@ namespace LittleProblem.Web.Controllers
             _memberRepository = memberRepository;
             _problemService = problemService;
             _problemRepository = problemRepository;
+
         }
 
         public ActionResult Details(String id)
@@ -44,7 +47,7 @@ namespace LittleProblem.Web.Controllers
         [HttpPost]
         public ActionResult Create(ProblemModel model)
         {
-            var member = _memberRepository.Get((string) Session["openId"]);
+            var member = _memberRepository.Get(MemberInformations.OpenId);
             if (member == null)
             {
                 ViewData["Error"] = "There is no known user.";
@@ -61,7 +64,7 @@ namespace LittleProblem.Web.Controllers
         [HttpPost]
         public ActionResult Answer(ResponseModel model)
         {
-            var member = _memberRepository.Get((string)Session["openId"]);
+            var member = _memberRepository.Get(MemberInformations.OpenId);
             if (member == null)
             {
                 ViewData["Error"] = "There is no known user.";
@@ -75,7 +78,7 @@ namespace LittleProblem.Web.Controllers
         [HttpGet]
         public ActionResult Close(String id)
         {
-            var member = _memberRepository.Get((string)Session["openId"]);
+            var member = _memberRepository.Get(MemberInformations.OpenId);
             _problemService.CloseProblem(id, member);
             return RedirectToAction("Index", "Home");
         }
@@ -84,7 +87,7 @@ namespace LittleProblem.Web.Controllers
         [HttpGet]
         public ActionResult Up(String id, String responseId)
         {
-            var member = _memberRepository.Get((string)Session["openId"]);
+            var member = _memberRepository.Get(MemberInformations.OpenId);
             _problemService.UpResponse(id, responseId, member);
             return RedirectToAction("Details", new { id = id });
         }
@@ -93,7 +96,7 @@ namespace LittleProblem.Web.Controllers
         [HttpGet]
         public ActionResult Down(String id, String responseId)
         {
-            var member = _memberRepository.Get((string)Session["openId"]);
+            var member = _memberRepository.Get(MemberInformations.OpenId);
             _problemService.DownResponse(id, responseId, member);
             return RedirectToAction("Details", new { id = id });   
         }

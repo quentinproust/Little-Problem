@@ -85,6 +85,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProblemController.cs" />
+    <Compile Include="Extension\BaseController.cs" />
+    <Compile Include="Extension\OpenId\IAccountRelyingParty.cs" />
+    <Compile Include="Extension\OpenId\AccountRelyingParty.cs" />
+    <Compile Include="Extension\Session\MemberInformations.cs" />
+    <Compile Include="Extension\Session\SessionObject.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -94,11 +99,11 @@
     <Compile Include="Models\PaginationModel.cs" />
     <Compile Include="Models\ProblemListModel.cs" />
     <Compile Include="Models\ProblemModels.cs" />
-    <Compile Include="OpenIdAuthorizeAttribute.cs" />
+    <Compile Include="Extension\OpenId\OpenIdAuthorizeAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SMBootStrapper.cs" />
-    <Compile Include="SMControllerFactory.cs" />
-    <Compile Include="WebBootStrapper.cs" />
+    <Compile Include="Extension\SMBootStrapper.cs" />
+    <Compile Include="Extension\SMControllerFactory.cs" />
+    <Compile Include="Extension\WebBootStrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\arrow_down.gif" />

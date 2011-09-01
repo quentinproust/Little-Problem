@@ -3,7 +3,7 @@ using LittleProblem.Data;
 using LittleProblem.Quartz;
 using StructureMap;
 
-namespace LittleProblem.Web
+namespace LittleProblem.Web.Extension
 {
     public class SMBootStrapper : IBootStrap
     {
