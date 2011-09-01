@@ -5,6 +5,7 @@ using LittleProblem.Data.Repository;
 using LittleProblem.Test.Common;
 using LittleProblem.Web.Controllers;
 using LittleProblem.Web.Models;
+using LittleProblem.WebTest.Helpers;
 using MongoDB.Bson;
 using NUnit.Framework;
 
@@ -20,7 +21,7 @@ namespace LittleProblem.WebTest
             var member = new Member
                              {
                                  Email = "test@email.com",
-                                 OpenId = "http://test.openid.com",
+                                 OpenId = ConnectionHelper.OpenId,
                                  UserName = "Jack Test",
                                  Note = 2345
                              };
@@ -28,8 +29,8 @@ namespace LittleProblem.WebTest
             var memberRepository = A.Fake<IMemberRepository>();
             var accountController = new AccountController(null, memberRepository);
             accountController.InjectFakeContext();
+            accountController.ConnectUser();
 
-            A.CallTo(() => accountController.Session["openId"]).Returns(member.OpenId);
             A.CallTo(() => memberRepository.Get(member.OpenId)).Returns(member);
             
             var result = accountController.Profile() as ViewResult;

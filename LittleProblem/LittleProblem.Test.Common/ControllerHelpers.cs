@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using FakeItEasy;
+using LittleProblem.Test.Common.Session;
 
 namespace LittleProblem.Test.Common
 {
@@ -14,10 +15,9 @@ namespace LittleProblem.Test.Common
         public static HttpContextBase FakeHttpContext()
         {
             var context = A.Fake<HttpContextBase>();
-
+            var session = new SessionWrapper();
             var request = A.Fake<HttpRequestBase>();
             var response = A.Fake<HttpResponseBase>();
-            var session = A.Fake<HttpSessionStateBase>();
             var server = A.Fake<HttpServerUtilityBase>();
 
             A.CallTo(() => context.Request).Returns(request);

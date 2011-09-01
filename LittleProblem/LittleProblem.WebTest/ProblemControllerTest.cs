@@ -9,7 +9,9 @@ using LittleProblem.Data.Repository;
 using LittleProblem.Data.Services;
 using LittleProblem.Test.Common;
 using LittleProblem.Web.Controllers;
+using LittleProblem.Web.Helpers;
 using LittleProblem.Web.Models;
+using LittleProblem.WebTest.Helpers;
 using NUnit.Framework;
 
 namespace LittleProblem.WebTest
@@ -53,15 +55,15 @@ namespace LittleProblem.WebTest
             var memberRepository = A.Fake<IMemberRepository>();
             var problemController = new ProblemController(memberRepository,problemService, problemRepository);
             problemController.InjectFakeContext();
+            problemController.ConnectUser();
 
             var problem = _session.Single<Problem>().Get();
             var member = _session.Single<Member>().Get();
 
             var problemModel = new ProblemModel {Title = problem.Title,Text = problem.Text};
 
-            A.CallTo(() => problemController.HttpContext.Session["openId"]).Returns(member.OpenId);
             A.CallTo(() => memberRepository.Get(member.OpenId)).Returns(member);
-            A.CallTo(() => problemService.CreateProblem(problem.Title, problem.Text, member)).Returns(problem);
+            A.CallTo(() => problemService.CreateProblem(problem.Title, problem.Text.TransformLine(), member)).Returns(problem);
 
             var redirect = problemController.Create(problemModel) as RedirectToRouteResult;
 
