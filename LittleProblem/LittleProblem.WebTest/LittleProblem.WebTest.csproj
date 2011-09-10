@@ -34,6 +34,10 @@
     <Reference Include="AutoPoco">
       <HintPath>..\packages\AutoPoco.1.0.0.0\lib\AutoPoco.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetOpenAuth, Version=3.4.5.10202, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\DotNetOpenAuth.dll</HintPath>
+    </Reference>
     <Reference Include="FakeItEasy">
       <HintPath>..\lib\FakeItEasy.dll</HintPath>
     </Reference>
@@ -56,6 +60,7 @@
     <Compile Include="AccountControllerTest.cs" />
     <Compile Include="AccountModelsTest.cs" />
     <Compile Include="Helpers\ConnectionHelper.cs" />
+    <Compile Include="Helpers\ResultHelpers.cs" />
     <Compile Include="HomeControllerTest.cs" />
     <Compile Include="ProblemControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

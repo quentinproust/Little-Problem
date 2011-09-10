@@ -40,12 +40,12 @@ namespace LittleProblem.Web.Controllers
 
                     case AuthenticationStatus.Canceled:
                         ModelState.AddModelError("",
-                            "Login was cancelled at the provider");
+                            Resources.Errors.Account.LogInCancelInRelyingParty);
                         break;
 
                     case AuthenticationStatus.Failed:
                         ModelState.AddModelError("",
-                            "Login failed using the provided OpenID identifier");
+                            Resources.Errors.Account.LogInFailedWithProvidedIdentifier);
                         break;
                 }
             }
@@ -58,7 +58,7 @@ namespace LittleProblem.Web.Controllers
             if (!_relyingParty.IsValidIdentifier(model.OpenId))
             {
                 ModelState.AddModelError("loginIdentifier",
-                            "The specified login identifier is invalid");
+                            Resources.Errors.Account.InvalidIndentifier);
                 return View();
             }
 

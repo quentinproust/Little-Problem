@@ -62,7 +62,9 @@ namespace LittleProblem.WebTest
             var problemModel = new ProblemModel {Title = problem.Title,Text = problem.Text};
 
             A.CallTo(() => memberRepository.Get(member.OpenId)).Returns(member);
-            A.CallTo(() => problemService.CreateProblem(problem.Title, problem.Text.TransformLine(), member)).Returns(problem);
+            A.CallTo(() => problemService.CreateProblem(problem.Title, problem.Text.TransformLine(), member))
+                .WithAnyArguments()
+                .Returns(problem);
 
             var redirect = problemController.Create(problemModel) as RedirectToRouteResult;
 
