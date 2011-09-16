@@ -5,10 +5,6 @@ namespace LittleProblem.Data.Server
     public interface IConnexion
     {
         /// <summary>
-        /// Get a mongo database
-        /// </summary>
-        MongoDatabase Database { get; }
-        /// <summary>
         /// Get a collection from its name.
         /// </summary>
         /// <typeparam name="T"></typeparam>

@@ -1,5 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Resources.Error;
 
 namespace LittleProblem.Web.Models
 {
@@ -7,15 +7,15 @@ namespace LittleProblem.Web.Models
     #region Models
     public class ProblemModel
     {
-        [Required(ErrorMessage = "You need to enter a title.")]
+        [Required(ErrorMessageResourceType = typeof (Problem), ErrorMessageResourceName = "ProblemTitleIsRequired")]
         public string Title { get; set; }
-        [Required(ErrorMessage = "You should explain your problem.")]
+        [Required(ErrorMessageResourceType = typeof (Problem), ErrorMessageResourceName = "ProblemMessageIsRequired")]
         public string Text { get; set; }
     }
 
     public class ResponseModel
     {
-        [Required(ErrorMessage = "An empty response isn't a response.")]
+        [Required(ErrorMessageResourceType = typeof (Problem), ErrorMessageResourceName = "ResponseIsRequired")]
         public string Text { get; set; }
 
         public string ProblemId { get; set; }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Resources.Errors {
+namespace Resources.Error {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Resources.Errors {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Account {
+    public class Problem {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Account() {
+        internal Problem() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Resources.Errors {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LittleProblem.Web.Resources.Errors.Account", typeof(Account).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LittleProblem.Web.Resources.Errors.Problem", typeof(Problem).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,29 @@ namespace Resources.Errors {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified login identifier is invalid..
+        ///   Looks up a localized string similar to You should explain your problem..
         /// </summary>
-        public static string InvalidIndentifier {
+        public static string ProblemMessageIsRequired {
             get {
-                return ResourceManager.GetString("InvalidIndentifier", resourceCulture);
+                return ResourceManager.GetString("ProblemMessageIsRequired", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login was cancelled at the provider..
+        ///   Looks up a localized string similar to You need to enter a title..
         /// </summary>
-        public static string LogInCancelInRelyingParty {
+        public static string ProblemTitleIsRequired {
             get {
-                return ResourceManager.GetString("LogInCancelInRelyingParty", resourceCulture);
+                return ResourceManager.GetString("ProblemTitleIsRequired", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login failed using the provided OpenID identifier..
+        ///   Looks up a localized string similar to An empty response isn&apos;t a response..
         /// </summary>
-        public static string LogInFailedWithProvidedIdentifier {
+        public static string ResponseIsRequired {
             get {
-                return ResourceManager.GetString("LogInFailedWithProvidedIdentifier", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You need to have a user name..
-        /// </summary>
-        public static string UserNameIsRequired {
-            get {
-                return ResourceManager.GetString("UserNameIsRequired", resourceCulture);
+                return ResourceManager.GetString("ResponseIsRequired", resourceCulture);
             }
         }
     }

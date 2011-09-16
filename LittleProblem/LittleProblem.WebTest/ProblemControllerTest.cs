@@ -8,10 +8,8 @@ using LittleProblem.Data.Repository;
 using LittleProblem.Data.Services;
 using LittleProblem.Test.Common;
 using LittleProblem.Test.Common.Initializers;
-using LittleProblem.Web.Controllers;
 using LittleProblem.Web.Helpers;
 using LittleProblem.Web.Models;
-using LittleProblem.WebTest.Helpers;
 using NUnit.Framework;
 
 namespace LittleProblem.WebTest

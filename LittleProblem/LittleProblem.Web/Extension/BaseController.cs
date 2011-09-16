@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using LittleProblem.Web.Extension.Session;
 
 namespace LittleProblem.Web.Extension
 {
     public class BaseController : Controller
     {
-        protected readonly ISessionRegistry SessionRegistry;
+        private readonly ISessionRegistry _sessionRegistry;
 
         protected BaseController(ISessionRegistry sessionRegistry)
         {
-            SessionRegistry = sessionRegistry;
+            _sessionRegistry = sessionRegistry;
         }
 
         public MemberInformations MemberInformations
         {
-            get { return SessionRegistry.MemberInformations; }
+            get { return _sessionRegistry.MemberInformations; }
         }
 
     }

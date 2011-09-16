@@ -63,16 +63,15 @@ namespace LittleProblem.Data.Services
         {
             var problem = _problemsCollection.AsQueryable()
                 .FirstOrDefault(m => m.Id == new ObjectId(problemId));
-            if (member.Id.Equals(problem.UserId))
-            {
-                problem.ClosureDate = DateTime.Now;
-                problem.CurrentSolution = solution;
-                _problemsCollection.Save(problem);
-            }
-            else
+            
+            if (!member.Id.Equals(problem.UserId))
             {
                 throw new AccessViolationException("Only the problem create can close it");
             }
+            
+            problem.ClosureDate = DateTime.Now;
+            problem.CurrentSolution = solution;
+            _problemsCollection.Save(problem);
         }
 
         public void DownResponse(string problemId, string responseId, Member member)

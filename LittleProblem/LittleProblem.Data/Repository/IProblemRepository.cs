@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using LittleProblem.Data.Aggregate;
 using LittleProblem.Data.Model;
 
@@ -7,11 +6,6 @@ namespace LittleProblem.Data.Repository
 {
     public interface IProblemRepository
     {
-        /// <summary>
-        /// Return the number of problem for each pages.
-        /// </summary>
-        Int32 PageSize { get; }
-
         /// <summary>
         /// Get all problem corresponding to a page number.
         /// The number of problem can't be greater that PageSize.

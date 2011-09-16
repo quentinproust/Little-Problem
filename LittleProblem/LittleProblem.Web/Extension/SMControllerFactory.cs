@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
+using NLog;
 using StructureMap;
 
 namespace LittleProblem.Web.Extension
 {
     public class SMControllerFactory : DefaultControllerFactory
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public override IController CreateController(RequestContext requestContext, string controllerName)
         {
             try
@@ -18,7 +21,9 @@ namespace LittleProblem.Web.Extension
             }
             catch (Exception ex)
             {
-                //Use the default logic.
+                Logger.InfoException("Default controller logic is being used.", ex);
+
+                //Use the default logic.);
                 return base.CreateController(requestContext, controllerName);
             }
 

@@ -10,7 +10,7 @@ namespace LittleProblem.WebTest
         [Test]
         public void NoteModelDivideNoteIntoGoldSilverAndBronze()
         {
-            var memberNote = 123456789;
+            const int memberNote = 123456789;
 
             var noteModel = new NoteModel(memberNote);
 

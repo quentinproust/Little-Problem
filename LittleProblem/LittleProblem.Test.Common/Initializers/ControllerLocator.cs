@@ -1,10 +1,10 @@
 ﻿using LittleProblem.Data.Repository;
 using LittleProblem.Data.Services;
+using LittleProblem.Test.Common.Helpers;
 using LittleProblem.Test.Common.Session;
 using LittleProblem.Web.Controllers;
 using LittleProblem.Web.Extension;
 using LittleProblem.Web.Extension.OpenId;
-using LittleProblem.WebTest.Helpers;
 
 namespace LittleProblem.Test.Common.Initializers
 {

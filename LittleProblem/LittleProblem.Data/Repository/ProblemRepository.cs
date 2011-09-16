@@ -22,7 +22,7 @@ namespace LittleProblem.Data.Repository
             _problemsCollection = _connexion.Collection<Problem>(CollectionNames.Problem);
         }
 
-        public int PageSize
+        public static int PageSize
         {
             get { return 10; }
         }

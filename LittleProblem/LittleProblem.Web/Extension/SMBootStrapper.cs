@@ -13,6 +13,7 @@ namespace LittleProblem.Web.Extension
             {
                 x.AddRegistry<DataRegistry>();
                 x.AddRegistry<QuartzRegistry>();
+                x.AddRegistry<WebRegistry>();
             });
         }
     }

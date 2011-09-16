@@ -1,5 +1,4 @@
-﻿using System;
-using LittleProblem.Common;
+﻿using LittleProblem.Common;
 using LittleProblem.Quartz.Jobs;
 using Quartz;
 

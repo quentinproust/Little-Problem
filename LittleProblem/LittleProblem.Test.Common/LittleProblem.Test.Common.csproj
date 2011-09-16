@@ -56,7 +56,6 @@
     <Compile Include="Initializers\ControllerLocator.cs" />
     <Compile Include="ObjectIdDataSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Session\KeysCollectionWrapper.cs" />
     <Compile Include="Session\SessionWrapper.cs" />
     <Compile Include="Session\TestSessionRegistry.cs" />
   </ItemGroup>

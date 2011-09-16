@@ -130,7 +130,7 @@ namespace LittleProblem.DataTest
             var members = _session.List<Member>(2).Get();
             _conn.Collection<Member>(CollectionNames.Member).InsertBatch(members);
 
-            var pageSize = _problemRepository.PageSize;
+            var pageSize = ProblemRepository.PageSize;
             var generatedProblems = _session.List<Problem>(pageSize +10)
                 .Random(pageSize)
                     .Impose(x => x.UserId, members[0].Id)
@@ -151,7 +151,7 @@ namespace LittleProblem.DataTest
             var members = _session.List<Member>(2).Get();
             _conn.Collection<Member>(CollectionNames.Member).InsertBatch(members);
 
-            var pageSize = _problemRepository.PageSize;
+            var pageSize = ProblemRepository.PageSize;
             var generatedProblems = _session.List<Problem>(pageSize + 3)
                 .Random(pageSize)
                     .Impose(x => x.UserId, members[0].Id)

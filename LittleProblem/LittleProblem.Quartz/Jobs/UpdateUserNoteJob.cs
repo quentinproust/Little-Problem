@@ -1,5 +1,4 @@
-﻿using System;
-using LittleProblem.Data.Services;
+﻿using LittleProblem.Data.Services;
 using NLog;
 using Quartz;
 using StructureMap;

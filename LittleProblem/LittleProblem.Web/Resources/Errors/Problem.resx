@@ -117,16 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="InvalidIndentifier" xml:space="preserve">
-    <value>The specified login identifier is invalid.</value>
+  <data name="ProblemTitleIsRequired" xml:space="preserve">
+    <value>You need to enter a title.</value>
   </data>
-  <data name="LogInCancelInRelyingParty" xml:space="preserve">
-    <value>Login was cancelled at the provider.</value>
+  <data name="ProblemMessageIsRequired" xml:space="preserve">
+    <value>You should explain your problem.</value>
   </data>
-  <data name="LogInFailedWithProvidedIdentifier" xml:space="preserve">
-    <value>Login failed using the provided OpenID identifier.</value>
-  </data>
-  <data name="UserNameIsRequired" xml:space="preserve">
-    <value>You need to have a user name.</value>
+  <data name="ResponseIsRequired" xml:space="preserve">
+    <value>An empty response isn't a response.</value>
   </data>
 </root>

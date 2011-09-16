@@ -42,8 +42,8 @@ namespace LittleProblem.Data.Services
             }
             return member;
         }
-        
-        public Member CreateOnFirstLogIn(string openId, string email)
+
+        private Member CreateOnFirstLogIn(string openId, string email)
         {
             int nb = _membersCollection.Count() + 1;
             var member = new Member
@@ -53,6 +53,7 @@ namespace LittleProblem.Data.Services
                                     FirstConnection = DateTime.Now,
                                     LastConnection = DateTime.Now
                                 };
+            if(!String.IsNullOrEmpty(email)) member.Email = email;
             _membersCollection.Save(member);
 
             Logger.Info("A new person has logged in LittleProblem. "+

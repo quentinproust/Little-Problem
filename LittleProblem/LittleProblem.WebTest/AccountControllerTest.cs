@@ -3,10 +3,10 @@ using DotNetOpenAuth.OpenId.RelyingParty;
 using FakeItEasy;
 using LittleProblem.Data.Model;
 using LittleProblem.Data.Repository;
+using LittleProblem.Test.Common.Helpers;
 using LittleProblem.Test.Common.Initializers;
 using LittleProblem.Web.Extension.OpenId;
 using LittleProblem.Web.Models;
-using LittleProblem.WebTest.Helpers;
 using NUnit.Framework;
 
 namespace LittleProblem.WebTest
@@ -181,7 +181,7 @@ namespace LittleProblem.WebTest
 
             A.CallTo(() => relyingParty.LogOut());
 
-            var result = accountController.LogOut() as ActionResult;
+            var result = accountController.LogOut();
 
             Assert.That(result, Is.Not.Null);
 

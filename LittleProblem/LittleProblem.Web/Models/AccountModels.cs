@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Resources.Errors;
 
 namespace LittleProblem.Web.Models
 {
@@ -11,7 +12,7 @@ namespace LittleProblem.Web.Models
 
     public class ProfileModel
     {
-        [Required(ErrorMessage = "You need to have a user name.")]
+        [Required(ErrorMessageResourceType = typeof (Account), ErrorMessageResourceName = "UserNameIsRequired")]
         public String UserName { get; set; }
         public String Email { get; set; }
 
@@ -29,9 +30,9 @@ namespace LittleProblem.Web.Models
             Bronze = memberNote;
         }
 
-        public long Gold { get; set; }
-        public long Silver { get; set; }
-        public long Bronze { get; set; }
+        public long Gold { get; private set; }
+        public long Silver { get; private set; }
+        public long Bronze { get; private set; }
 
         public bool Equals(NoteModel other)
         {
@@ -44,8 +45,7 @@ namespace LittleProblem.Web.Models
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (NoteModel)) return false;
-            return Equals((NoteModel) obj);
+            return obj.GetType() == typeof (NoteModel) && Equals((NoteModel) obj);
         }
 
         public override int GetHashCode()

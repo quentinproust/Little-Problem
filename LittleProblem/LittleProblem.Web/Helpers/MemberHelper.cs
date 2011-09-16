@@ -1,22 +1,18 @@
-﻿using System.Web;
-using System.Web.SessionState;
-using LittleProblem.Data.Model;
+﻿using LittleProblem.Data.Model;
 using LittleProblem.Web.Extension.Session;
+using StructureMap;
 
 namespace LittleProblem.Web.Helpers
 {
     public static class MemberHelper
     {
-        public static bool IsCurrentMember(this HttpSessionState sessionState, Member member)
+        public static bool IsCurrentMember(this Member member)
         {
-            return IsCurrentMember(new HttpSessionStateWrapper(sessionState), member);
-        }
-
-        public static bool IsCurrentMember(this HttpSessionStateBase sessionState, Member member)
-        {
-            if (sessionState != null)
+            var sessionRegistry = ObjectFactory.GetInstance<ISessionRegistry>();
+            
+            if (sessionRegistry.IsConnected())
             {
-                var memberInformations = new MemberInformations(sessionState);
+                var memberInformations = sessionRegistry.MemberInformations;
                 return memberInformations.OpenId != null 
                     && memberInformations.OpenId.Equals(member.OpenId);
             }

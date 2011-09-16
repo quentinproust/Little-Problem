@@ -2,13 +2,12 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using FakeItEasy;
-using LittleProblem.Test.Common.Session;
 
 namespace LittleProblem.Test.Common
 {
     public static class ControllerHelpers
     {
-        public static HttpContextBase FakeHttpContext()
+        private static HttpContextBase FakeHttpContext()
         {
             var context = A.Fake<HttpContextBase>();
             HttpSessionStateBase session = null; // Controller are forbidden to call session directly

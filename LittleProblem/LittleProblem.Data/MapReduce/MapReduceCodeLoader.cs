@@ -3,7 +3,7 @@ using MongoDB.Bson;
 
 namespace LittleProblem.Data.MapReduce
 {
-    public class MapReduceCodeLoader
+    public static class MapReduceCodeLoader
     {
         private const string CodeFileDirectory = "./MapReduce/";
 

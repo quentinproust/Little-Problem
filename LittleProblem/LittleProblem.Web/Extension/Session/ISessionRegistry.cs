@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace LittleProblem.Web.Extension.Session
+﻿namespace LittleProblem.Web.Extension.Session
 {
     public interface ISessionRegistry
     {
+        bool IsConnected();
         void CleanSession();
         MemberInformations MemberInformations { get; }
     }

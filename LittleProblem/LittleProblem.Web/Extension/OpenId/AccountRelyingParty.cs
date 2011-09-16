@@ -10,7 +10,7 @@ using LittleProblem.Web.Extension.Session;
 
 namespace LittleProblem.Web.Extension.OpenId
 {
-    public class AccountRelyingParty
+    public class AccountRelyingParty : IAccountRelyingParty
     {
         private readonly IMembershipService _membershipService;
         private readonly ISessionRegistry _sessionRegistry;
@@ -27,7 +27,7 @@ namespace LittleProblem.Web.Extension.OpenId
         /// Get response from the relying party to log in user.
         /// </summary>
         /// <returns>Authentication response from the relying party</returns>
-        IAuthenticationResponse GetResponse()
+        public IAuthenticationResponse GetResponse()
         {
             return _openid.GetResponse();
         }
@@ -37,7 +37,7 @@ namespace LittleProblem.Web.Extension.OpenId
         /// </summary>
         /// <param name="identifier">Identifier.</param>
         /// <returns>Is Valid</returns>
-        bool IsValidIdentifier(string identifier)
+        public bool IsValidIdentifier(string identifier)
         {
             return Identifier.IsValid(identifier);
         }
@@ -47,7 +47,7 @@ namespace LittleProblem.Web.Extension.OpenId
         /// </summary>
         /// <param name="identifier">Identifier</param>
         /// <returns>Request</returns>
-        ActionResult CreateRequest(string identifier)
+        public ActionResult CreateRequest(string identifier)
         {
             IAuthenticationRequest request = _openid.CreateRequest(
                 Identifier.Parse(identifier));
@@ -62,7 +62,7 @@ namespace LittleProblem.Web.Extension.OpenId
         /// Log member in from response informations.
         /// </summary>
         /// <param name="response">A successfull response from the relying party</param>
-        void LogInMember(IAuthenticationResponse response)
+        public void LogInMember(IAuthenticationResponse response)
         {
             var fetch = response.GetExtension(typeof(ClaimsResponse)) as ClaimsResponse;
             string email = null;

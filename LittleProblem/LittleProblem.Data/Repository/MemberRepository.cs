@@ -1,18 +1,14 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using FluentMongo.Linq;
 using LittleProblem.Data.Model;
 using LittleProblem.Data.Server;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using NLog;
 
 namespace LittleProblem.Data.Repository
 {
     public class MemberRepository : IMemberRepository
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
         private readonly IConnexion _connexion;
         private readonly MongoCollection<Member> _membersCollection;
 

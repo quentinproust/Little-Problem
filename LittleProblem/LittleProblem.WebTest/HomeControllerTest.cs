@@ -84,7 +84,7 @@ namespace LittleProblem.WebTest
         }
 
         [Test]
-        public void IndexShow2ndPage()
+        public void IndexShow2NdPage()
         {
             var problems = _session.List<Problem>(5).Get();
 

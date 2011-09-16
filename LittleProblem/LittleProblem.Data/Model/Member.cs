@@ -30,8 +30,7 @@ namespace LittleProblem.Data.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (Member)) return false;
-            return Equals((Member) obj);
+            return obj.GetType() == typeof (Member) && Equals((Member) obj);
         }
 
         public override int GetHashCode()

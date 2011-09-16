@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 
 namespace LittleProblem.Web.Extension.Session
@@ -11,7 +9,7 @@ namespace LittleProblem.Web.Extension.Session
         /// Session property.
         /// This is the session used in mvc.
         /// </summary>
-        protected readonly HttpSessionStateBase _session;
+        private readonly HttpSessionStateBase _session;
 
         private readonly MemberInformations _memberInformations;
 
@@ -27,6 +25,11 @@ namespace LittleProblem.Web.Extension.Session
         {
             _session = session;
             _memberInformations = new MemberInformations(_session);
+        }
+
+        public bool IsConnected()
+        {
+            return MemberInformations != null && !String.IsNullOrEmpty(MemberInformations.OpenId);
         }
 
         public void CleanSession()
