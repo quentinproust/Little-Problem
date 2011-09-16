@@ -5,6 +5,7 @@ using LittleProblem.Data.Repository;
 using LittleProblem.Data.Services;
 using LittleProblem.Web.Extension;
 using LittleProblem.Web.Extension.OpenId;
+using LittleProblem.Web.Extension.Session;
 using LittleProblem.Web.Models;
 
 namespace LittleProblem.Web.Controllers
@@ -19,7 +20,8 @@ namespace LittleProblem.Web.Controllers
         public AccountController(
             IMembershipService membershipService,
             IMemberRepository memberRepository,
-            IAccountRelyingParty relyingParty)
+            IAccountRelyingParty relyingParty,
+            ISessionRegistry sessionRegistry) : base(sessionRegistry)
         {
             _membershipService = membershipService;
             _memberRepository = memberRepository;

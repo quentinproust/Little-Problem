@@ -4,6 +4,7 @@ using LittleProblem.Data.Repository;
 using LittleProblem.Data.Services;
 using LittleProblem.Web.Extension;
 using LittleProblem.Web.Extension.OpenId;
+using LittleProblem.Web.Extension.Session;
 using LittleProblem.Web.Helpers;
 using LittleProblem.Web.Models;
 
@@ -18,12 +19,12 @@ namespace LittleProblem.Web.Controllers
         public ProblemController(
             IMemberRepository memberRepository, 
             IProblemService problemService, 
-            IProblemRepository problemRepository)
+            IProblemRepository problemRepository,
+            ISessionRegistry sessionRegistry) : base(sessionRegistry)
         {
             _memberRepository = memberRepository;
             _problemService = problemService;
             _problemRepository = problemRepository;
-
         }
 
         public ActionResult Details(String id)
@@ -89,7 +90,7 @@ namespace LittleProblem.Web.Controllers
         {
             var member = _memberRepository.Get(MemberInformations.OpenId);
             _problemService.UpResponse(id, responseId, member);
-            return RedirectToAction("Details", new { id = id });
+            return RedirectToAction("Details", new { id });
         }
 
         [OpenIdAuthorize]
@@ -98,7 +99,7 @@ namespace LittleProblem.Web.Controllers
         {
             var member = _memberRepository.Get(MemberInformations.OpenId);
             _problemService.DownResponse(id, responseId, member);
-            return RedirectToAction("Details", new { id = id });   
+            return RedirectToAction("Details", new { id });   
         }
 
     }

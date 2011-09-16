@@ -3,12 +3,10 @@ using DotNetOpenAuth.OpenId.RelyingParty;
 using FakeItEasy;
 using LittleProblem.Data.Model;
 using LittleProblem.Data.Repository;
-using LittleProblem.Test.Common;
-using LittleProblem.Web.Controllers;
+using LittleProblem.Test.Common.Initializers;
 using LittleProblem.Web.Extension.OpenId;
 using LittleProblem.Web.Models;
 using LittleProblem.WebTest.Helpers;
-using MongoDB.Bson;
 using NUnit.Framework;
 
 namespace LittleProblem.WebTest
@@ -29,9 +27,7 @@ namespace LittleProblem.WebTest
                              };
 
             var memberRepository = A.Fake<IMemberRepository>();
-            var accountController = new AccountController(null, memberRepository, null);
-            accountController.InjectFakeContext();
-            accountController.ConnectUser();
+            var accountController = ControllerLocator.GetAccountControllerForConnectedUser(memberRepository);
 
             A.CallTo(() => memberRepository.Get(member.OpenId)).Returns(member);
             
@@ -58,9 +54,7 @@ namespace LittleProblem.WebTest
             };
 
             var memberRepository = A.Fake<IMemberRepository>();
-            var accountController = new AccountController(null, memberRepository, null);
-            accountController.InjectFakeContext();
-            accountController.ConnectUser();
+            var accountController = ControllerLocator.GetAccountControllerForConnectedUser(memberRepository);
 
             A.CallTo(() => memberRepository.Get(member.OpenId)).Returns(member);
 
@@ -79,8 +73,7 @@ namespace LittleProblem.WebTest
             var canceledResponse = A.Fake<IAuthenticationResponse>();
             var relyingParty = A.Fake<IAccountRelyingParty>();
 
-            var accountController = new AccountController(null, null, relyingParty);
-            accountController.InjectFakeContext();
+            var accountController = ControllerLocator.GetAccountControllerForLoginTest(relyingParty);
 
             A.CallTo(() => canceledResponse.Status).Returns(AuthenticationStatus.Canceled);
             A.CallTo(() => relyingParty.GetResponse()).Returns(canceledResponse);
@@ -101,8 +94,7 @@ namespace LittleProblem.WebTest
             var failedResponse = A.Fake<IAuthenticationResponse>();
             var relyingParty = A.Fake<IAccountRelyingParty>();
 
-            var accountController = new AccountController(null, null, relyingParty);
-            accountController.InjectFakeContext();
+            var accountController = ControllerLocator.GetAccountControllerForLoginTest(relyingParty);
 
             A.CallTo(() => failedResponse.Status).Returns(AuthenticationStatus.Failed);
             A.CallTo(() => relyingParty.GetResponse()).Returns(failedResponse);
@@ -123,8 +115,7 @@ namespace LittleProblem.WebTest
             var successResponse = A.Fake<IAuthenticationResponse>();
             var relyingParty = A.Fake<IAccountRelyingParty>();
 
-            var accountController = new AccountController(null, null, relyingParty);
-            accountController.InjectFakeContext();
+            var accountController = ControllerLocator.GetAccountControllerForLoginTest(relyingParty);
 
             A.CallTo(() => successResponse.Status).Returns(AuthenticationStatus.Authenticated);
             A.CallTo(() => relyingParty.GetResponse()).Returns(successResponse);
@@ -146,8 +137,7 @@ namespace LittleProblem.WebTest
             var loginModel = new LogInModel {OpenId = ConnectionHelper.OpenId};
             var relyingParty = A.Fake<IAccountRelyingParty>();
 
-            var accountController = new AccountController(null, null, relyingParty);
-            accountController.InjectFakeContext();
+            var accountController = ControllerLocator.GetAccountControllerForLoginTest(relyingParty);
 
             A.CallTo(() => relyingParty.IsValidIdentifier(ConnectionHelper.OpenId)).Returns(false);
 
@@ -168,13 +158,12 @@ namespace LittleProblem.WebTest
             var redirectResult = new EmptyResult(); 
             var relyingParty = A.Fake<IAccountRelyingParty>();
 
-            var accountController = new AccountController(null, null, relyingParty);
-            accountController.InjectFakeContext();
+            var accountController = ControllerLocator.GetAccountControllerForLoginTest(relyingParty);
 
             A.CallTo(() => relyingParty.IsValidIdentifier(ConnectionHelper.OpenId)).Returns(true);
             A.CallTo(() => relyingParty.CreateRequest(ConnectionHelper.OpenId)).Returns(redirectResult);
 
-            var result = accountController.LogIn(loginModel) as ActionResult;
+            var result = accountController.LogIn(loginModel);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.SameAs(redirectResult));
@@ -188,8 +177,7 @@ namespace LittleProblem.WebTest
         {
             var relyingParty = A.Fake<IAccountRelyingParty>();
 
-            var accountController = new AccountController(null, null, relyingParty);
-            accountController.InjectFakeContext();
+            var accountController = ControllerLocator.GetAccountControllerForLoginTest(relyingParty);
 
             A.CallTo(() => relyingParty.LogOut());
 

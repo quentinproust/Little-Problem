@@ -13,14 +13,14 @@ namespace LittleProblem.Web.Extension.OpenId
     public class AccountRelyingParty
     {
         private readonly IMembershipService _membershipService;
+        private readonly ISessionRegistry _sessionRegistry;
         private readonly OpenIdRelyingParty _openid;
-        private readonly MemberInformations _memberInformations;
 
-        public AccountRelyingParty(IMembershipService membershipService)
+        public AccountRelyingParty(IMembershipService membershipService, ISessionRegistry sessionRegistry)
         {
             _membershipService = membershipService;
+            _sessionRegistry = sessionRegistry;
             _openid = new OpenIdRelyingParty();
-            _memberInformations = new MemberInformations();
         }
 
         /// <summary>
@@ -74,13 +74,13 @@ namespace LittleProblem.Web.Extension.OpenId
                                          ? _membershipService.LogIn(response.ClaimedIdentifier.ToString()) 
                                          : _membershipService.LogIn(response.ClaimedIdentifier.ToString(), email);
 
-            _memberInformations.UserName = connectedMember.UserName;
-            _memberInformations.OpenId = response.ClaimedIdentifier.ToString();
+            _sessionRegistry.MemberInformations.UserName = connectedMember.UserName;
+            _sessionRegistry.MemberInformations.OpenId = response.ClaimedIdentifier.ToString();
         }
 
         public void LogOut()
         {
-            _memberInformations.Clear();
+            _sessionRegistry.CleanSession();
             FormsAuthentication.SignOut();
         }
     }

@@ -82,6 +82,10 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extension\BaseController.cs" />
+    <Compile Include="Extension\Session\ISessionRegistry.cs" />
+    <Compile Include="Extension\Session\SessionRegistry.cs" />
+    <Compile Include="Extension\WebRegistry.cs" />
     <Compile Include="Resources\Errors\Account.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -90,7 +94,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProblemController.cs" />
-    <Compile Include="Extension\BaseController.cs" />
     <Compile Include="Extension\OpenId\IAccountRelyingParty.cs" />
     <Compile Include="Extension\OpenId\AccountRelyingParty.cs" />
     <Compile Include="Extension\Session\MemberInformations.cs" />

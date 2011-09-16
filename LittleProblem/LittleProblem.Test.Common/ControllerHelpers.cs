@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using FakeItEasy;
@@ -15,7 +11,7 @@ namespace LittleProblem.Test.Common
         public static HttpContextBase FakeHttpContext()
         {
             var context = A.Fake<HttpContextBase>();
-            var session = new SessionWrapper();
+            HttpSessionStateBase session = null; // Controller are forbidden to call session directly
             var request = A.Fake<HttpRequestBase>();
             var response = A.Fake<HttpResponseBase>();
             var server = A.Fake<HttpServerUtilityBase>();

@@ -7,6 +7,7 @@ using LittleProblem.Data.Model;
 using LittleProblem.Data.Repository;
 using LittleProblem.Data.Services;
 using LittleProblem.Test.Common;
+using LittleProblem.Test.Common.Initializers;
 using LittleProblem.Web.Controllers;
 using LittleProblem.Web.Helpers;
 using LittleProblem.Web.Models;
@@ -52,9 +53,7 @@ namespace LittleProblem.WebTest
             var problemService = A.Fake<IProblemService>();
             var problemRepository = A.Fake<IProblemRepository>();
             var memberRepository = A.Fake<IMemberRepository>();
-            var problemController = new ProblemController(memberRepository,problemService, problemRepository);
-            problemController.InjectFakeContext();
-            problemController.ConnectUser();
+            var problemController = ControllerLocator.GetProblemController(memberRepository, problemService, problemRepository);
 
             var problem = _session.Single<Problem>().Get();
             var member = _session.Single<Member>().Get();

@@ -9,11 +9,16 @@ namespace LittleProblem.Web.Extension
 {
     public class BaseController : Controller
     {
-        private MemberInformations _memberInformations;
+        protected readonly ISessionRegistry SessionRegistry;
+
+        protected BaseController(ISessionRegistry sessionRegistry)
+        {
+            SessionRegistry = sessionRegistry;
+        }
+
         public MemberInformations MemberInformations
         {
-            get { return _memberInformations ?? (_memberInformations = new MemberInformations(Session)); }
-            set { _memberInformations = value; }
+            get { return SessionRegistry.MemberInformations; }
         }
 
     }

@@ -59,8 +59,6 @@
   <ItemGroup>
     <Compile Include="AccountControllerTest.cs" />
     <Compile Include="AccountModelsTest.cs" />
-    <Compile Include="Helpers\ConnectionHelper.cs" />
-    <Compile Include="Helpers\ResultHelpers.cs" />
     <Compile Include="HomeControllerTest.cs" />
     <Compile Include="ProblemControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
