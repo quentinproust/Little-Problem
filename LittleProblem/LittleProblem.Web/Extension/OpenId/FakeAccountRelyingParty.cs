@@ -23,7 +23,8 @@ namespace LittleProblem.Web.Extension.OpenId
 
         public IAuthenticationResponse GetResponse()
         {
-            return new FakeSuccesResponse();
+            if (_sessionRegistry.IsConnected()) return new FakeSuccesResponse();
+            return null;
         }
 
         public bool IsValidIdentifier(string identifier)
@@ -33,25 +34,54 @@ namespace LittleProblem.Web.Extension.OpenId
 
         public ActionResult CreateRequest(string identifier)
         {
-            throw new NotImplementedException();
+            _sessionRegistry.MemberInformations.OpenId = identifier;
+            return new RedirectResult("/Account/LogIn");
         }
 
         public void LogInMember(IAuthenticationResponse response)
         {
-            Member connectedMember = _membershipService.LogIn("http://quentinproust@openid.com", "q.proust@gmail.com");
+            Member connectedMember = _membershipService.LogIn(_sessionRegistry.MemberInformations.OpenId);
 
             _sessionRegistry.MemberInformations.UserName = connectedMember.UserName;
-            _sessionRegistry.MemberInformations.OpenId = "http://quentinproust@openid.com";
         }
 
         public void LogOut()
         {
-            throw new NotImplementedException();
+            _sessionRegistry.CleanSession();
         }
     }
 
     internal class FakeSuccesResponse : IAuthenticationResponse
     {
+        
+        public AuthenticationStatus Status
+        {
+            get { return AuthenticationStatus.Authenticated; }
+        }
+
+        #region unused for faking
+
+        public Identifier ClaimedIdentifier
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string FriendlyIdentifierForDisplay
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+
+        public IProviderEndpoint Provider
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public Exception Exception
+        {
+            get { throw new NotImplementedException(); }
+        }
+
         public string GetCallbackArgument(string key)
         {
             throw new NotImplementedException();
@@ -92,29 +122,6 @@ namespace LittleProblem.Web.Extension.OpenId
             throw new NotImplementedException();
         }
 
-        public Identifier ClaimedIdentifier
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public string FriendlyIdentifierForDisplay
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public AuthenticationStatus Status
-        {
-            get { return AuthenticationStatus.Authenticated; }
-        }
-
-        public IProviderEndpoint Provider
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public Exception Exception
-        {
-            get { throw new NotImplementedException(); }
-        }
+        #endregion
     }
 }

@@ -51,14 +51,14 @@
 			</p>
 		</fieldset>
 
-        <fieldset>
-            <legend>LittleProblem Note</legend>
+		<fieldset>
+			<legend>LittleProblem Note</legend>
 
-            <p>
-                This is the note user gave you when they vote on your responses.
-            </p>
-            <% Html.RenderPartial("MemberNoteControl", Model.Note); %>
-        </fieldset>
+			<p>
+				This is the note user gave you when they vote on your responses.
+			</p>
+			<% Html.RenderPartial("MemberNoteControl", Model.Note); %>
+		</fieldset>
 
 	<% }
 	   } %>

@@ -215,6 +215,7 @@
     <Content Include="Scripts\openid-en.js" />
     <Content Include="Scripts\openid-jquery.js" />
     <Content Include="Global.asax" />
+    <Content Include="Views\Account\FakeLoginControl.ascx" />
     <Content Include="Views\Account\Login.aspx" />
     <Content Include="Views\Account\Profile.aspx" />
     <Content Include="Views\Home\Controls\ProblemListItem.ascx" />

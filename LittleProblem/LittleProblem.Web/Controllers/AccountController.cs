@@ -102,9 +102,7 @@ namespace LittleProblem.Web.Controllers
                 OpenId = MemberInformations.OpenId};
             _membershipService.EditMemberProfile(member);
 
-            MemberInformations.UserName = member.UserName;
-
-            return View(model);
+            return RedirectToAction("Profile");
         }
     }
 }
