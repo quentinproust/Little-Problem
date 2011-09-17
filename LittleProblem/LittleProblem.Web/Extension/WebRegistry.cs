@@ -9,7 +9,12 @@ namespace LittleProblem.Web.Extension
         public WebRegistry()
         {
             For<ISessionRegistry>().HttpContextScoped().Use<SessionRegistry>();
+#if DEBUG
+            For<IAccountRelyingParty>().HttpContextScoped().Use<FakeAccountRelyingParty>();
+#else
             For<IAccountRelyingParty>().HttpContextScoped().Use<AccountRelyingParty>();
+#endif
+
         }
 
     }
