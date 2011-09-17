@@ -6,6 +6,7 @@ namespace LittleProblem.Data.MapReduce
     public static class MapReduceCodeLoader
     {
         private const string CodeFileDirectory = "./MapReduce/";
+        private static readonly MapReduceInMemoryCache Cache = new MapReduceInMemoryCache();
 
         /// <summary>
         /// Will load code in the file given in parameter.
@@ -14,7 +15,11 @@ namespace LittleProblem.Data.MapReduce
         /// <returns>Code</returns>
         public static BsonJavaScript Load(string fileName)
         {
-            return new BsonJavaScript(LoadFileContent(fileName));
+            if (!Cache.IsCached(fileName))
+            {
+                Cache.Save(fileName, new BsonJavaScript(LoadFileContent(fileName)));
+            }
+            return Cache.Get(fileName);
         }
 
         /// <summary>

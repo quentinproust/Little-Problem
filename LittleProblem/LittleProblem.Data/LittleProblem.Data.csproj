@@ -61,6 +61,7 @@
     <Compile Include="CollectionNames.cs" />
     <Compile Include="DataRegistry.cs" />
     <Compile Include="MapReduce\MapReduceCodeLoader.cs" />
+    <Compile Include="MapReduce\MapReduceInMemoryCache.cs" />
     <Compile Include="Model\Member.cs" />
     <Compile Include="Model\Problem.cs" />
     <Compile Include="Model\Response.cs" />
